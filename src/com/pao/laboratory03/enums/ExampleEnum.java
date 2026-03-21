@@ -78,6 +78,8 @@ public class ExampleEnum {
             case WINTER: System.out.println("❄️ Iarnă!"); break;
         }
 
+        Planet pl = Planet.EARTH;
+
         // === Enum cu câmpuri și metodă abstractă ===
         System.out.println("\n=== Enum cu câmpuri și metode ===");
         for (Planet p : Planet.values()) {

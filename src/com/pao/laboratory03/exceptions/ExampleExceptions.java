@@ -108,7 +108,7 @@ public class ExampleExceptions {
             System.out.println("Prinsă la nivel superior: " + e.getClass().getSimpleName());
         }
 
-        // === 7. Excepții în colecții ===
+        // === 7. Excepții în colecții === 
         System.out.println("\n=== 7. Validare cu excepții în colecții ===");
         List<String> emails = new ArrayList<>();
         String[] input = {"ana@mail.com", "invalid-email", "dan@mail.com", "ana@mail.com"};

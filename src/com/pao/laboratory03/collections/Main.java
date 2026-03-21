@@ -1,5 +1,10 @@
 package com.pao.laboratory03.collections;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 /**
  * Exercițiul 1 — Colecții: HashMap și TreeMap
  *
@@ -48,9 +53,38 @@ package com.pao.laboratory03.collections;
  * Studenți la PAOJ: [Ana, Mihai, Ion]
  * Studenți la BD (actualizat): [Ana, Elena, George]
  */
+
 public class Main {
     public static void main(String[] args) {
-        // TODO: implementează cele 3 părți de mai sus
+        String[] words = {"java", "python", "java", "c++", "python", "java", "rust", "c++", "go"};
+        Map<String, Integer> HWords = new HashMap<>();
+        for (String w : words) {
+            HWords.put(w, HWords.getOrDefault(w, 0) + 1);
+        }
+        System.out.println("Frecvente limbaje: " + HWords);
+        System.out.println("Map contine \"rust\"? " + HWords.containsKey("rust"));
+        System.out.println("chei: " + HWords.keySet());
+        System.out.println("valori: " + HWords.values());
+        for (Map.Entry<String, Integer> entry : HWords.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+
+
+        TreeMap<String, Integer> HWordsSortatTreeMap = new TreeMap<>(HWords);
+        System.out.println("Sortat: " + HWordsSortatTreeMap);
+        System.out.println("Prima cheie: " + HWordsSortatTreeMap.firstKey());
+        System.out.println("Ultima cheie: " + HWordsSortatTreeMap.lastKey());
+
+
+        HashMap<String, List<String>> StudentiMateriiHashMap = new HashMap<>();
+        StudentiMateriiHashMap.put("PAOJ", new ArrayList<>(Arrays.asList("Ana", "Mihai", "Ion")));
+        StudentiMateriiHashMap.put("BD", new ArrayList<>(Arrays.asList("Ana", "Elena")));
+
+        System.out.println("Studenti la BD: " + StudentiMateriiHashMap.get("BD"));
+        System.out.println("Studenti la PAOJ: " + StudentiMateriiHashMap.get("PAOJ"));
+
+        StudentiMateriiHashMap.get("BD").add("George");
+        System.out.println("Studenti la BD (actualizat): " + StudentiMateriiHashMap.get("BD"));
+        
     }
 }
-

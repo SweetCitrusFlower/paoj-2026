@@ -1,5 +1,8 @@
 package com.pao.laboratory03.bonus;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Exercițiul 5 (Bonus) — Sistem de gestiune task-uri cu audit log
  *
@@ -13,7 +16,7 @@ package com.pao.laboratory03.bonus;
  * Sistemul gestionează task-uri. Fiecare task are:
  *   - String id (unic, format "T001", "T002", ...)
  *   - String title
- *   - Status status (enum: TODO, IN_PROGRESS, DONE, CANCELLED)
+ *   - Status status (enum: TO_DO, IN_PROGRESS, DONE, CANCELLED)
  *   - Priority priority (enum: LOW, MEDIUM, HIGH, CRITICAL)
  *   - String assignee (persoana responsabilă, poate fi null)
  *
@@ -22,7 +25,7 @@ package com.pao.laboratory03.bonus;
  * ═══════════════════════════════════════════════════════
  *
  * 1. Status — cu metoda abstractă boolean canTransitionTo(Status next):
- *    - TODO → poate trece la IN_PROGRESS sau CANCELLED
+ *    - TO_DO → poate trece la IN_PROGRESS sau CANCELLED
  *    - IN_PROGRESS → poate trece la DONE sau CANCELLED
  *    - DONE → nu poate trece nicăieri
  *    - CANCELLED → nu poate trece nicăieri
@@ -40,7 +43,7 @@ package com.pao.laboratory03.bonus;
  * 2. TaskNotFoundException extends RuntimeException
  * 3. InvalidTransitionException extends RuntimeException
  *    - Câmp extra: Status fromStatus, Status toStatus
- *    - getMessage() → "Nu se poate trece din IN_PROGRESS în TODO"
+ *    - getMessage() → "Nu se poate trece din IN_PROGRESS în TO_DO"
  *
  * ═══════════════════════════════════════════════════════
  *  SERVICIU — TaskService (Singleton)
@@ -65,14 +68,14 @@ package com.pao.laboratory03.bonus;
  *      → aruncă TaskNotFoundException dacă id-ul nu există
  *      → aruncă InvalidTransitionException dacă tranziția nu e permisă
  *        (folosește Status.canTransitionTo())
- *      → logează: "[STATUS] T001: TODO → IN_PROGRESS"
+ *      → logează: "[STATUS] T001: TO_DO → IN_PROGRESS"
  *
  *   d) List<Task> getTasksByPriority(Priority priority)
  *      → returnează lista din map (sau listă goală)
  *
  *   e) Map<Status, Long> getStatusSummary()
  *      → returnează câte task-uri sunt pe fiecare status
- *      → exemplu: {TODO=3, IN_PROGRESS=2, DONE=5, CANCELLED=1}
+ *      → exemplu: {TO_DO=3, IN_PROGRESS=2, DONE=5, CANCELLED=1}
  *
  *   f) List<Task> getUnassignedTasks()
  *      → task-uri cu assignee == null
@@ -103,11 +106,11 @@ package com.pao.laboratory03.bonus;
  * Output așteptat (orientativ):
  *
  * === Adăugare task-uri ===
- * Adăugat: Task{id='T001', title='Fix login bug', priority=CRITICAL, status=TODO}
- * Adăugat: Task{id='T002', title='Add dark mode', priority=LOW, status=TODO}
- * Adăugat: Task{id='T003', title='Update docs', priority=MEDIUM, status=TODO}
- * Adăugat: Task{id='T004', title='Fix memory leak', priority=HIGH, status=TODO}
- * Adăugat: Task{id='T005', title='Refactor DB layer', priority=HIGH, status=TODO}
+ * Adăugat: Task{id='T001', title='Fix login bug', priority=CRITICAL, status=TO_DO}
+ * Adăugat: Task{id='T002', title='Add dark mode', priority=LOW, status=TO_DO}
+ * Adăugat: Task{id='T003', title='Update docs', priority=MEDIUM, status=TO_DO}
+ * Adăugat: Task{id='T004', title='Fix memory leak', priority=HIGH, status=TO_DO}
+ * Adăugat: Task{id='T005', title='Refactor DB layer', priority=HIGH, status=TO_DO}
  *
  * === Asignare ===
  * T001 → Ana
@@ -115,17 +118,17 @@ package com.pao.laboratory03.bonus;
  * T004 → Elena
  *
  * === Schimbări status ===
- * T001: TODO → IN_PROGRESS ✓
+ * T001: TO_DO → IN_PROGRESS ✓
  * T001: IN_PROGRESS → DONE ✓
- * T003: TODO → IN_PROGRESS ✓
- * T001: DONE → TODO → InvalidTransitionException: Nu se poate trece din DONE în TODO
+ * T003: TO_DO → IN_PROGRESS ✓
+ * T001: DONE → TO_DO → InvalidTransitionException: Nu se poate trece din DONE în TO_DO
  *
  * === Task-uri HIGH ===
- * Task{id='T004', title='Fix memory leak', priority=HIGH, status=TODO, assignee=Elena}
- * Task{id='T005', title='Refactor DB layer', priority=HIGH, status=TODO, assignee=null}
+ * Task{id='T004', title='Fix memory leak', priority=HIGH, status=TO_DO, assignee=Elena}
+ * Task{id='T005', title='Refactor DB layer', priority=HIGH, status=TO_DO, assignee=null}
  *
  * === Sumar status ===
- * TODO: 2
+ * TO_DO: 2
  * IN_PROGRESS: 1
  * DONE: 1
  * CANCELLED: 0
@@ -146,16 +149,38 @@ package com.pao.laboratory03.bonus;
  * [ASSIGN] T001 → Ana
  * [ASSIGN] T003 → Mihai
  * [ASSIGN] T004 → Elena
- * [STATUS] T001: TODO → IN_PROGRESS
+ * [STATUS] T001: TO_DO → IN_PROGRESS
  * [STATUS] T001: IN_PROGRESS → DONE
- * [STATUS] T003: TODO → IN_PROGRESS
+ * [STATUS] T003: TO_DO → IN_PROGRESS
  *
  * === Excepții ===
  * TaskNotFoundException: Task-ul 'T999' nu a fost găsit
  */
+class TaskService 
+{
+    private static TaskService single_instance = null;
+    private static int autoId = 0;
+    private TaskService(){
+
+    }
+
+    Map<String, Task> tasksById;
+    Map<Priority, List<Task>> tasksByPriority;
+    List<String> auditLog;
+
+    public static synchronized TaskService getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new TaskService();
+        return single_instance;
+    }
+}
 public class Main {
+    static int baseDays = 5;
     public static void main(String[] args) {
-        // TODO: implementează toți cei 10 pași de mai sus
+        TaskService TS = TaskService.getInstance();
+
+        // TO_DO: implementează toți cei 10 pași de mai sus
         // Creează TOATE clasele necesare în acest pachet (bonus/)
         // Nu ai subpachete impuse — organizează cum consideri
     }
