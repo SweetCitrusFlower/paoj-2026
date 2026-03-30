@@ -1,12 +1,12 @@
 package com.pao.laboratory03.exercise.exception;
 
 public class InvalidGradeException extends RuntimeException {
-    private final int grade;
+    private final double grade;
 
-    public InvalidGradeException(int grade) {
+    public InvalidGradeException(double grade) {
         super("Nota invalida: nota " +  grade + " nu este valida (1-10)");
         this.grade = grade;
     }
 
-    public int getGrade() {return grade;}
+    public double getGrade() {return grade;}
 }

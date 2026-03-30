@@ -1,6 +1,5 @@
 package com.pao.laboratory03.exercise.model;
 
-import com.pao.laboratory03.exceptions.InvalidAgeException;
 import com.pao.laboratory03.exercise.exception.InvalidGradeException;
 import com.pao.laboratory03.exercise.exception.InvalidStudentException;
 import java.util.*;
@@ -31,7 +30,7 @@ public class Student {
     public void addGrade(Subject subject, double grade){
         try {
             if(grade < 1 || grade > 10)
-                throw new InvalidAgeException(age);
+                throw new InvalidGradeException(grade);
             grades.put(subject, grade);
         } catch (InvalidGradeException e) {
             System.out.println("Prins InvalidStudentException in validateAge: " + e.getMessage());
