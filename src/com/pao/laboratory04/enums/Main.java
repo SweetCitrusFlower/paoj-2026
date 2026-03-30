@@ -1,20 +1,9 @@
-package com.pao.laboratory04.enums;
+package com.pao.laboratory03.enums;
+
 
 /**
  * Exercițiul 2 — Enum-uri
- *
- * Creează în acest pachet (lângă acest Main.java) un enum și apoi folosește-l aici.
- *
- * PASUL 1 — Creează enum-ul Priority.java (fișier separat în același pachet):
- *   - Constante: LOW, MEDIUM, HIGH, CRITICAL
- *   - Câmpuri private: int level, String color
- *   - Constructor privat: Priority(int level, String color)
- *   - Getteri: getLevel(), getColor()
- *   - Metodă abstractă: String getEmoji() — fiecare constantă o implementează diferit
- *     LOW → "🟢", MEDIUM → "🟡", HIGH → "🟠", CRITICAL → "🔴"
- *   - Valorile sugerate:
- *     LOW(1, "green"), MEDIUM(2, "yellow"), HIGH(3, "orange"), CRITICAL(4, "red")
- *
+
  * PASUL 2 — În acest Main.java:
  *   a) Parcurge toate valorile cu Priority.values() și afișează:
  *      "emoji name (level=X, color=Y)"
@@ -49,8 +38,28 @@ package com.pao.laboratory04.enums;
  */
 public class Main {
     public static void main(String[] args) {
-        // TODO: implementează pașii de mai sus
-        // Hint: creează mai întâi fișierul Priority.java în acest pachet
+        for (Priority pr : Priority.values()) {
+            System.out.println(pr.getEmoji() + " " + pr.name() + " (level=" + pr.getLevel() + ", color=" + pr.getColor() + ")");
+        }
+        Priority pr = Priority.LOW;
+        switch (pr) {
+            case LOW -> System.out.println("Prioritate scazuta (e chill vere)");
+            case MEDIUM -> System.out.println("Prioritate medie.");
+            case HIGH -> System.out.println("Prioritate ridicata!");
+            case CRITICAL -> System.out.println("Atenție! Prioritate critică!");
+        }
+
+        Priority prMedium = Priority.valueOf("MEDIUM");
+        System.out.println("Priority.valueOf(\"MEDIUM\") = " + prMedium);
+
+        Priority fromString = Priority.valueOf("MEDIUM");
+        System.out.println("MEDIUM == MEDIUM? " + (fromString == Priority.MEDIUM));
+        System.out.println("MEDIUM == HIGH? " + (fromString == Priority.HIGH));
+
+        for (Priority s : Priority.values()) {
+            System.out.println("  " + s.name() + " (ordinal=" + s.ordinal() + ")");
+        }
     }
+
 }
 

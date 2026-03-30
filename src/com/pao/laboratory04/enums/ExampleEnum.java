@@ -1,4 +1,4 @@
-package com.pao.laboratory04.enums;
+package com.pao.laboratory03.enums;
 
 /**
  * Exemplu demonstrativ — Enum-uri în Java.
@@ -77,6 +77,8 @@ public class ExampleEnum {
             case AUTUMN: System.out.println("🍂 Toamnă!"); break;
             case WINTER: System.out.println("❄️ Iarnă!"); break;
         }
+
+        Planet pl = Planet.EARTH;
 
         // === Enum cu câmpuri și metodă abstractă ===
         System.out.println("\n=== Enum cu câmpuri și metode ===");
