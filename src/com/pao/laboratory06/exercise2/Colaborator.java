@@ -1,14 +1,18 @@
 package com.pao.laboratory06.exercise2;
 
-public abstract class Colaborator implements IOperatiiCitireScriere{
-    private String nume;
-    private String prenume;
-    private double VenitBrutLunar;
+import java.text.DecimalFormat;
 
-    public Colaborator(String nume, String prenume, double VenitBrutLunar) {
+public abstract class Colaborator implements IOperatiiCitireScriere{
+    String nume;
+    String prenume;
+    double VenitBrutLunar;
+    TipColaborator tipColaborator;
+
+    public Colaborator(TipColaborator tipColaborator, String nume, String prenume, double VenitBrutLunar) {
         this.VenitBrutLunar = VenitBrutLunar;
         this.nume = nume;
         this.prenume = prenume;
+        this.tipColaborator = tipColaborator;
     }
     
     public abstract double calculeazaVenitNetAnual();
@@ -24,4 +28,21 @@ public abstract class Colaborator implements IOperatiiCitireScriere{
     public double getVenitBrutLunar() {
         return this.VenitBrutLunar;
     }
+    
+    @Override
+    public String tipContract() {
+        return this.getTip().name();
+    }
+
+    public TipColaborator getTip(){
+        return this.tipColaborator;
+    }
+
+    @Override
+    public void afiseaza() {
+        DecimalFormat df = new DecimalFormat("#.00"); 
+        System.out.println(this.tipContract() + ": " + this.getNume() + " " + this.getPrenume() + ", venit net anual: " + df.format(this.calculeazaVenitNetAnual()) + " lei");
+    }
+
+
 }
