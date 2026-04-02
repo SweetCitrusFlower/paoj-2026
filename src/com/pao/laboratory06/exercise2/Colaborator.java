@@ -1,6 +1,6 @@
 package com.pao.laboratory06.exercise2;
 
-public abstract class Colaborator {
+public abstract class Colaborator implements IOperatiiCitireScriere{
     private String nume;
     private String prenume;
     private double VenitBrutLunar;
