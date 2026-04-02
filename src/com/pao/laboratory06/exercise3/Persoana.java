@@ -1,13 +1,11 @@
 package com.pao.laboratory06.exercise3;
 
-import java.util.Optional;
-
 public abstract class Persoana {
     String nume;
     String prenume;
-    Optional<String> telefon;
+    String telefon;
     
-    public Persoana(String nume, String prenume, Optional<String> telefon) {
+    public Persoana(String nume, String prenume, String telefon) {
         this.nume = nume;
         this.prenume = prenume;
         this.telefon = telefon;
@@ -21,7 +19,7 @@ public abstract class Persoana {
         return prenume;
     }
 
-    public Optional<String> getTelefon() {
+    public String getTelefon() {
         return telefon;
     }
 }
