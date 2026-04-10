@@ -41,14 +41,15 @@ public class Main {
             System.out.println(c.descriere());
         }
 
-        while(true){
+        boolean primesteComenzi = true;
+        while(primesteComenzi){
 
             String command = sc.nextLine().trim();
             String[] tokens = command.split(" ");
 
             System.out.println();
             switch(tokens[0]){
-                case "QUIT" -> {break;}
+                case "QUIT" -> {primesteComenzi = false;}
                 case "STATS" -> {
                     System.out.println("--- STATS ---");
                     Map<TipComanda, List<Comanda>> comenziGroupedBy = comenzi.stream().collect(Collectors.groupingBy(Comanda::getTipComanda));
@@ -78,8 +79,10 @@ public class Main {
                         System.out.println(c.descriere());
                     }
                 }
+                default ->{
+                    System.out.println("Command not found");
+                }
             }
-            break;
         }
     }
 }
