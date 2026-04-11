@@ -1,0 +1,39 @@
+Tema: platforma food delivery
+
+Obiecte:
+ 1. Comanda (class: Pair<Produs, Cantitate>[], dataPlasare, status, Curier, Locatie, Client, AdresaLivrare)
+ 	1.1. Status (Enum: plasata, in pregatire, finalizata, in drum spre destinatie, livrata, anulata)
+
+ 2. Produs (class: denumire, pret, CategorieProdus, Ingredient[])
+	2.1. CategorieProdus (Enum: BolPoke, Salata, Garnitura, Desert)
+	2.2. Ingredient (Class: nume, CategorieIngredient, stoc)
+		2.2.1 CategorieIngredient(Enum: Baza, Green, Proteina, Dressing, Topping, Desert)
+
+ 3. CardFidelitate (class: Client, nrProduseIntroduse, Reducere[])
+
+ 4. Locatie (class: Adresa, Angajat[])
+
+ 5. Reducere (class: Produs, procent)
+
+ 6. Persoana (class: nume, prenume, nrTelefon) -> 
+	6.1 Client (CardFidelitate[], AdresaLivrare[])
+	6.2. Angajat (salariu) ->
+		6.2.1 Curier
+		6.2.2 Bucatar
+
+
+ I. Adresa (class: numeStrada, nrStrada, codPostal) ->
+	I.1. AdresaLivrare (class: nrApartament)
+ 
+
+Clasa (Singleton) "Serviciu", expune operatiile sistemului:
+	1. toate produsele sortate dupa anumite criterii (pret, nume, popularitate(de cate ori au fost comandate produsele))
+	2. afisare produse dintr-o anumita categorie
+	3. plasare comanda
+	4. creare card fidelitate client
+	5. afisare reduceri client
+	6. afisare istoric comenzi ale unui client
+	7. verificare disponibilitate ingredient -> afiseaza produsele care nu sunt disponibile deoarece ingredientul respectiv nu este disponibil
+	8. sterge cardul de fidelitate al unui client
+    9. adaugare o noua adresa livrare ptr client
+    10. sterge o adresa de livrare ptr un client
