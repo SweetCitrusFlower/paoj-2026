@@ -9,14 +9,14 @@ Obiecte:
 	2.2. Ingredient (Class: nume, CategorieIngredient, stoc)
 		2.2.1 CategorieIngredient(Enum: Baza, Green, Proteina, Dressing, Topping, Desert)
 
- 3. CardFidelitate (class: Client, nrProduseIntroduse, Reducere[])
+ 3. CardFidelitate (class: nrProduseIntroduse, Reducere[])
 
  4. Locatie (class: Adresa, Angajat[])
 
  5. Reducere (class: Produs, procent)
 
  6. Persoana (class: nume, prenume, nrTelefon) -> 
-	6.1 Client (CardFidelitate[], AdresaLivrare[])
+	6.1 Client (CardFidelitate, AdresaLivrare[])
 	6.2. Angajat (salariu) ->
 		6.2.1 Curier
 		6.2.2 Bucatar
@@ -27,10 +27,42 @@ Obiecte:
  
 
 Clasa (Singleton) "Serviciu", expune operatiile sistemului:
+	1. Logare client
+		1. Ai cont? (Y/N)
+			Y. introducere nume prenume parola
+				1.1 plasare comanda
+				
+				1.2 afisare produse dintr-o categorie
+				1.3 afisare produse sortate dupa un anumit criteriu ()
+				
+				1.3 afisare reduceri disponibile
+				
+				1.4 afisare adrese de livrare
+				1.5 adaugare adresa de livrare
+				1.6 stergere adresa livrare
+				
+				1.7 afisare istoric comenzi
+				1.8 iesire din meniu client (delogare)
+			
+			N. Inregistrare: introduce nume prenume rnTelefon parola
+				-> logare automata -> Y. ...
+
+	2. logare admin
+		1. introducere username(AdMiNpOkE), parola (PAROLApoke2005!@!@!@)
+			2.1 stergere produs
+			2.2 adaugare produs
+			
+			2.3 afisare clienti
+			
+			2.4 iesire din meniu admin (delogare)  
+
+	3. iesire din aplicatie
+
+
+
+
 	1. toate produsele sortate dupa anumite criterii (pret, nume, popularitate(de cate ori au fost comandate produsele))
 	2. afisare produse dintr-o anumita categorie
-	3. plasare comanda
-	4. creare card fidelitate client
 	5. afisare reduceri client
 	6. afisare istoric comenzi ale unui client
 	7. verificare disponibilitate ingredient -> afiseaza produsele care nu sunt disponibile deoarece ingredientul respectiv nu este disponibil

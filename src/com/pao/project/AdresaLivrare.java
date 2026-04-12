@@ -8,7 +8,5 @@ public class AdresaLivrare extends Adresa{
         this.nrApartament = nrApartament;
     }
 
-    public int getNrApartament() {
-        return nrApartament;
-    }
+    public int getNrApartament() {return nrApartament;}
 }

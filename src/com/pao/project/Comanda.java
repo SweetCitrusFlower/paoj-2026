@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Comanda {
-    private Map<Produs, Integer> produseCantitate;
-    private LocalDateTime dataPlasare;
+    private final Map<Produs, Integer> produseCantitate;
+    private final LocalDateTime dataPlasare;
     private Status status;
-    private Curier curier;
-    private Locatie locatie;
-    private Client client;
-    private AdresaLivrare adresaLivrare;
+    private final Curier curier;
+    private final Locatie locatie;
+    private final Client client;
+    private final AdresaLivrare adresaLivrare;
 
     public Comanda(Client client, AdresaLivrare adresaLivrare, Map<Produs, Integer> produseCantitate, Curier curier, Locatie locatie) {
         this.curier = curier;
@@ -24,26 +24,12 @@ public class Comanda {
         this.dataPlasare = LocalDateTime.now();
     }
 
-    public Map<Produs, Integer> getProduseCantitate() {
-        return Map.copyOf(produseCantitate);
-    }
-    public LocalDateTime getDataPlasare() {
-        return dataPlasare;
-    }
-    public Status getStatus() {
-        return status;
-    }
-    public Curier getCurier() {
-        return curier;
-    }
-    public Locatie getLocatie() {
-        return locatie;
-    }
-    public Client getClient() {
-        return client;
-    }
-    public AdresaLivrare getAdresaLivrare() {
-        return adresaLivrare;
-    }
+    public Map<Produs, Integer> getProduseCantitate() {return Map.copyOf(produseCantitate);}
+    public LocalDateTime getDataPlasare() {return dataPlasare;}
+    public Status getStatus() {return status;}
+    public Curier getCurier() {return curier;}
+    public Locatie getLocatie() {return locatie;}
+    public Client getClient() {return client;}
+    public AdresaLivrare getAdresaLivrare() {return adresaLivrare;}
 
 }

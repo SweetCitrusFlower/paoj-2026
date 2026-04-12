@@ -8,8 +8,6 @@ public class Bucatar extends Angajat{
         this.locatiePrincipala = locatie;
     }
 
-    public Locatie getLocatie() {
-        return locatiePrincipala;
-    }
+    public Locatie getLocatie() {return locatiePrincipala;}
 
 }

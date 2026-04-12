@@ -8,7 +8,6 @@ public class Angajat extends Persoana{
         this.salariu = salariu;
     }
 
-    public double getSalariu() {
-        return salariu;
-    }
+    public double getSalariu() {return salariu;}
+    protected void marireSalariu(int i){this.salariu *= (1 + Double.valueOf(i)/100);}
 }

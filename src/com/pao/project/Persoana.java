@@ -1,9 +1,9 @@
 package com.pao.project;
 
 public abstract class Persoana {
-    private String nume;
-    private String prenume;
-    private String nrTelefon;
+    private final String nume;
+    private final String prenume;
+    private final String nrTelefon;
     
     public Persoana(String nume, String prenume, String nrTelefon) {
         this.nume = nume;
@@ -11,13 +11,7 @@ public abstract class Persoana {
         this.nrTelefon = nrTelefon;
     }
     
-    public String getNume() {
-        return nume;
-    }
-    public String getPrenume() {
-        return prenume;
-    }
-    public String getNrTelefon() {
-        return nrTelefon;
-    }
+    public String getNume() {return nume;}
+    public String getPrenume() {return prenume;}
+    public String getNrTelefon() {return nrTelefon;}
 }

@@ -8,7 +8,8 @@ public class Produs implements Comparable<Produs>{
     private final double pret;
     private final CategorieProdus categorieProdus;
     private final List<Ingredient> listaIngrediente;
-    private int cntComandat;
+    
+    public int cntComandat;
     
     public Produs(String denumire, double pret, CategorieProdus categorieProdus, List<Ingredient> listaIngrediente) {
         this.denumire = denumire;
@@ -18,29 +19,13 @@ public class Produs implements Comparable<Produs>{
         this.cntComandat = 0;
     }
 
-    public String getDenumire() {
-        return denumire;
-    }
-
-    public double getPret() {
-        return pret;
-    }
-
-    public CategorieProdus getCategorieProdus() {
-        return categorieProdus;
-    }
-
-    public List<Ingredient> getListaIngrediente() {
-        return List.copyOf(listaIngrediente);
-    }
-
-    public int getCntComandat(){
-        return this.cntComandat;
-    }
+    public String getDenumire() {return denumire;}
+    public double getPret() {return pret;}
+    public CategorieProdus getCategorieProdus() {return categorieProdus;}
+    public List<Ingredient> getListaIngrediente() {return List.copyOf(listaIngrediente);}
 
     @Override
     public int compareTo(Produs o) {
         return Double.compare(this.pret, o.getPret());        
     }
-    
 }
