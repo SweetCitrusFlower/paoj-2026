@@ -20,11 +20,13 @@ public class Client extends Persoana{
     private final String parola;
     private final CardFidelitate cardFidelitate;
     private final List<AdresaLivrare> listaAdreseLivrare;
+    private final List<Comanda> listaComenzi;
 
     public Client(String nume, String prenume, String nrTelefon, String parola) {
         super(nume, prenume, nrTelefon);
         this.parola = parola;
         this.listaAdreseLivrare = new ArrayList<>();
+        this.listaComenzi = new ArrayList<>();
         this.cardFidelitate = new CardFidelitate();
     }
 
@@ -32,7 +34,8 @@ public class Client extends Persoana{
     public int getNrProduseIntroduse() {return this.cardFidelitate.nrProduseIntroduse;}
     public List<Reducere> getListaReduceri() {return List.copyOf(cardFidelitate.listaReduceri);}
     public List<AdresaLivrare> getListaAdreseLivrare() {return List.copyOf(listaAdreseLivrare);}
-    
+    public List<Comanda> getListaComenzi() {return List.copyOf(listaComenzi);}
+
     public void adaugareAdresaLivrare(String numeStrada, int nrStrada, int codPostal, int nrApartament) {
         this.listaAdreseLivrare.add(new AdresaLivrare(numeStrada, nrStrada, codPostal, nrApartament));
     }
@@ -49,6 +52,5 @@ public class Client extends Persoana{
                 produs.cntComandat += en.getValue();
             }
         }
-    }
-    
+    }   
 }

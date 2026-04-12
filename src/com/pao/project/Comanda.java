@@ -10,13 +10,11 @@ public class Comanda {
     private Status status;
     private final Curier curier;
     private final Locatie locatie;
-    private final Client client;
     private final AdresaLivrare adresaLivrare;
 
-    public Comanda(Client client, AdresaLivrare adresaLivrare, Map<Produs, Integer> produseCantitate, Curier curier, Locatie locatie) {
+    public Comanda(AdresaLivrare adresaLivrare, Map<Produs, Integer> produseCantitate, Curier curier, Locatie locatie) {
         this.curier = curier;
         this.locatie = locatie;
-        this.client = client;
         this.adresaLivrare = adresaLivrare;
         this.produseCantitate = produseCantitate;
 
@@ -29,7 +27,6 @@ public class Comanda {
     public Status getStatus() {return status;}
     public Curier getCurier() {return curier;}
     public Locatie getLocatie() {return locatie;}
-    public Client getClient() {return client;}
     public AdresaLivrare getAdresaLivrare() {return adresaLivrare;}
 
 }

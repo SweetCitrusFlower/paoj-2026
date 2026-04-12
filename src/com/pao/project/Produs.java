@@ -24,6 +24,14 @@ public class Produs implements Comparable<Produs>{
     public CategorieProdus getCategorieProdus() {return categorieProdus;}
     public List<Ingredient> getListaIngrediente() {return List.copyOf(listaIngrediente);}
 
+    public boolean esteDisponibil(){
+        for(Ingredient i : listaIngrediente){
+            if(i.getStoc() <= 0)
+                return false;
+        }
+        return true;
+    }
+
     @Override
     public int compareTo(Produs o) {
         return Double.compare(this.pret, o.getPret());        
