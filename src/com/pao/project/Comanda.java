@@ -22,6 +22,15 @@ public class Comanda {
         this.dataPlasare = LocalDateTime.now();
     }
 
+    public Comanda(Comanda com) {
+        this.adresaLivrare = com.adresaLivrare;
+        this.curier = com.curier;
+        this.dataPlasare = com.dataPlasare;
+        this.locatie = com.locatie;
+        this.produseCantitate = Map.copyOf(com.produseCantitate);
+        this.status = com.status;
+    }
+
     public Map<Produs, Integer> getProduseCantitate() {return Map.copyOf(produseCantitate);}
     public LocalDateTime getDataPlasare() {return dataPlasare;}
     public Status getStatus() {return status;}

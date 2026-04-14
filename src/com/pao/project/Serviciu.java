@@ -22,13 +22,13 @@ public class Serviciu {
     public void marireSalariuAngajat(int indiceAngajat, int procent){InstanceHolder.listaAngajati.get(indiceAngajat).marireSalariu(procent);}
 
     public void run(){
-        try(Scanner sc = new Scanner(System.in)){
+        try(Scanner sc = new Scanner(System.in).useDelimiter( "\\n");){
             while(true){
                 System.out.println("1. logare client");
                 System.out.println("2. logare admin");
                 System.out.println("_. iesire din aplicatie");
                 System.out.print("> ");
-                switch(sc.next().strip()){
+                switch(sc.nextLine().strip()){
                     case "1" -> {
                         System.out.print("Aveti cont? (Y/N)\n> ");
                         switch(sc.next().strip().toLowerCase()){
@@ -42,7 +42,7 @@ public class Serviciu {
                                 for (Client cl : Serviciu.InstanceHolder.listaClienti) {
                                     if(cl.getNume().compareTo(nume) == 0 && cl.getPrenume().compareTo(prenume) == 0 && cl.getParola().compareTo(parola) == 0){
                                         System.out.println("Buna, " + prenume + "!");
-                                        cl.ClientMenu();
+                                        cl.ClientMenu(sc);
                                     }
                                 }
                                 System.out.println("parola sau numele sunt gresite :(");
@@ -68,15 +68,15 @@ public class Serviciu {
                                 Serviciu.InstanceHolder.listaClienti.add(cl);
                                 
                                 System.out.println("Bine ai venit la noi, " + prenume + "!");
-                                cl.ClientMenu();
+                                cl.ClientMenu(sc);
                             }
                         }
                     }
                     case "2" -> {
                         System.out.print("Nume: ");
-                        String nume = sc.next().strip().toLowerCase();
+                        String nume = sc.nextLine();
                         System.out.print("Parola: ");
-                        String parola = sc.next().strip().toLowerCase();
+                        String parola = sc.nextLine();
                         if(nume.compareTo("AdMiNpOkE") == 0 && parola.compareTo("PAROLApoke2005!@!@!@") == 0){
                             System.out.println("Logat ca admin cu succes!");
                             Serviciu.getInstance().AdminMenu();
@@ -85,6 +85,7 @@ public class Serviciu {
                             System.out.println("Acces interzis");
                         }
                     }
+                    case "" -> {}
                     default -> {
                         System.out.println("Bye bye!");
                         return;

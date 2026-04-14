@@ -12,6 +12,6 @@ public class AdresaLivrare extends Adresa{
 
     @Override
     public String toString(){
-        return ("Str. " + this.getNumeStrada() + ", nr. " + this.getNrStrada() + ", ap. " + this.getNrApartament() + ", cod postal " + this.getCodPostal());
+        return "Strada '" + this.getNumeStrada() + "', nr. " + this.getNrStrada() + ", ap. " + this.getNrApartament() + ", cod postal " + this.getCodPostal();
     }
 }

@@ -1,14 +1,16 @@
 package com.pao.project;
 
+import java.util.function.Function;
+
 public class Reducere {
-    private final Produs produs;
-    private final int procentReducere;
-    
-    public Reducere(Produs produs, int procentReducere) {
-        this.produs = produs;
-        this.procentReducere = procentReducere;
+    private final Function<Comanda, Comanda> functie;
+    private final String descriere;
+
+    public Reducere(String descriere, Function<Comanda, Comanda> functie) {
+        this.functie = functie;
+        this.descriere = descriere;
     }
 
-    public Produs getProdus() {return produs;}
-    public int getProcentReducere() {return procentReducere;}
+    public String getDescriere() {return descriere;}
+    public Comanda aplicaReducere(Comanda com){return functie.apply(com);}
 }

@@ -11,7 +11,7 @@ public class Adresa {
         this.codPostal = codPostal;
     }
 
-    public String getNumeStrada() {return numeStrada;}
+    public String getNumeStrada() {return String.format("%s",numeStrada);}
     public int getNrStrada() {return nrStrada;}
     public int getCodPostal() {return codPostal;}
     
