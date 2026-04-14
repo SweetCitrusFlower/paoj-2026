@@ -4,6 +4,7 @@ import com.pao.project.enums.CategorieProdus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Client extends Persoana{
         
@@ -53,4 +54,112 @@ public class Client extends Persoana{
             }
         }
     }   
+
+    
+    protected void ClientMenu(){
+        try(Scanner sc = new Scanner(System.in)){
+            sc.useDelimiter("\n");
+            System.out.println("1. plaseaza o comanda");
+            System.out.println("2. afiseaza produsele");
+            System.out.println("3. afiseaza reducerile tale");
+            System.out.println("4. afiseaza adresele tale de livrare");
+            System.out.println("5. adauga o adresa de livrare");
+            System.out.println("6. sterge o adresa de livrare");
+            System.out.println("7. afiseaza istoricul comenzilor tale");
+            System.out.println("_. delogare");
+            
+            while(true){
+                System.out.print("> ");
+                switch(sc.next().strip()){
+                    case "1" -> {
+                        // plasare comanda
+                    }
+                    case "2" -> {
+                        // afisare produse
+                        //    -> toate / doar cele disponibile
+                        //          -> dintr-o categorie anume / sortate dupa un criteriu
+                    }
+                    case "3" -> {
+                        // afiseaza reducerile
+                        
+                        if(this.cardFidelitate.listaReduceri.isEmpty()){
+                            System.out.println("Nu aveti nicio reducere valabila");
+                        }
+                        else{
+                            int i = 0;
+                            for(Reducere red : this.cardFidelitate.listaReduceri){
+                                i++;
+                                System.out.println(i + ". " + red.toString());
+                            }
+                        }
+                    }
+                    case "4" -> {
+                        if(this.listaAdreseLivrare.isEmpty()){
+                            System.out.println("Nu aveti nicio adresa de livrare");
+                        }
+                        else{
+                            int i = 0;
+                            for(AdresaLivrare adr : this.listaAdreseLivrare){
+                                i += 1;
+                                System.out.printf("%d. %s\n", i, adr.toString());
+                                System.out.flush();
+                            }
+                        }
+                    }
+                    case "5" -> {
+                        System.out.print("Numele strazii: ");
+                        String numeStrada = sc.next().toLowerCase();
+                        System.out.print("Nr. strazii: ");
+                        int nrStrada = Integer.parseInt(sc.next().strip().toLowerCase());
+                        System.out.print("Cod Postal: ");
+                        int codPostal = Integer.parseInt(sc.next().strip().toLowerCase());
+                        System.out.print("Nr. apartamentului: ");
+                        int nrApartament = Integer.parseInt(sc.next().strip().toLowerCase());
+                        this.listaAdreseLivrare.add(new AdresaLivrare(numeStrada, nrStrada, codPostal, nrApartament));
+                        
+                        System.out.println("Noua adresa a fost adaugata!");
+                    }
+                    case "6" -> {
+                        if(this.listaAdreseLivrare.isEmpty()){
+                            System.out.println("Nu aveti nicio adresa de livrare");
+                            continue;
+                        }
+                        int i = 0;
+                        for(AdresaLivrare adr : this.listaAdreseLivrare){
+                            i++;
+                            System.out.printf("%d. %s\n", i, adr.toString());
+                            System.out.flush();
+                        }
+                        System.out.println("Ce adresa doriti sa stergeti? (1 - " + i + "): ");
+                        try {
+                            int ind = Integer.parseInt(sc.next().strip());
+                            this.listaAdreseLivrare.remove(ind - 1);
+                            System.out.println("Adresa nr. " + ind + " a fost stearsa.");
+                        } catch (NumberFormatException e) {
+                            System.out.println("Va rog introduceti un numar intre 1 si " + i + ".");
+                        }
+                    }
+                    case "7" -> {
+                        if(this.listaComenzi.isEmpty()){
+                            System.out.println("Nu aveti nicio comanda plasata");
+                            continue;
+                        }
+                        int i = 0;
+                        for(Comanda com : this.listaComenzi){
+                            i++;
+                            int nrTotalProduse = 0;
+                            for(Map.Entry<Produs, Integer> pc : com.getProduseCantitate().entrySet()){
+                                nrTotalProduse += pc.getValue();
+                            }
+                            System.out.println("Comanda nr. " + (i + 1) + ": " + nrTotalProduse + " produse comandate, plasata la " + com.getDataPlasare() + ", cu adresa de livrare " + com.getAdresaLivrare().toString());
+                        }
+                    }
+                    default -> {
+                        System.out.println("Ne-a parut bine!");
+                        return;
+                    }
+                }
+            }    
+        }
+    }
 }
