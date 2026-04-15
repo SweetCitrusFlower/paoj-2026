@@ -1,5 +1,6 @@
 package com.pao.project;
 
+import com.pao.project.enums.Produs;
 import com.pao.project.enums.Status;
 import java.time.LocalDateTime;
 import java.util.Map;

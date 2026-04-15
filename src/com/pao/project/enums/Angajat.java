@@ -1,4 +1,6 @@
-package com.pao.project;
+package com.pao.project.enums;
+
+import com.pao.project.Persoana;
 
 public class Angajat extends Persoana{
     private double salariu;
@@ -9,5 +11,5 @@ public class Angajat extends Persoana{
     }
 
     public double getSalariu() {return salariu;}
-    protected void marireSalariu(int i){this.salariu *= (1 + Double.valueOf(i)/100);}
+    public void marireSalariu(int i){this.salariu *= (1 + Double.valueOf(i)/100);}
 }

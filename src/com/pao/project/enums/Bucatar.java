@@ -1,4 +1,6 @@
-package com.pao.project;
+package com.pao.project.enums;
+
+import com.pao.project.Locatie;
 
 public class Bucatar extends Angajat{
     private Locatie locatiePrincipala;
@@ -9,5 +11,5 @@ public class Bucatar extends Angajat{
     }
 
     public Locatie getLocatie() {return locatiePrincipala;}
-
+    public void schimbaLocatiePrincipala(Locatie locatieNoua){this.locatiePrincipala = locatieNoua;}
 }

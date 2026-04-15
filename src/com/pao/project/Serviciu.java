@@ -9,17 +9,13 @@ public class Serviciu {
     private static class InstanceHolder {
         public static Serviciu instance = new Serviciu();
         public static final List<Client> listaClienti = new ArrayList<>();
-        public static final List<Angajat> listaAngajati= new ArrayList<>();
-        public static final List<Produs> Meniu = new ArrayList<>();
     }
 
     private Serviciu(){}
 
     public static Serviciu getInstance() { return InstanceHolder.instance;}
 
-    public void adaugaProdusMeniu(Produs produs){InstanceHolder.Meniu.add(produs);}
-    public void stergeProdusMeniu(int indice){InstanceHolder.Meniu.remove(indice);}
-    public void marireSalariuAngajat(int indiceAngajat, int procent){InstanceHolder.listaAngajati.get(indiceAngajat).marireSalariu(procent);}
+    // public void marireSalariuAngajat(int indiceAngajat, int procent){InstanceHolder.listaAngajati.get(indiceAngajat).marireSalariu(procent);}
 
     public void run(){
         try(Scanner sc = new Scanner(System.in).useDelimiter( "\\n");){

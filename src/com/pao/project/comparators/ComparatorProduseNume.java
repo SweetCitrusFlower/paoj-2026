@@ -1,6 +1,6 @@
 package com.pao.project.comparators;
 
-import com.pao.project.Produs;
+import com.pao.project.enums.Produs;
 import java.util.Comparator;
 
 public class ComparatorProduseNume implements Comparator<Produs>{
