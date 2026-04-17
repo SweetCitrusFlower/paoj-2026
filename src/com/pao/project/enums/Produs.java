@@ -15,8 +15,22 @@ public enum Produs{
     VELVET_GARDEN("Velvet garden", 54.99, CategorieProdus.SALATA, new ArrayList<Ingredient>(List.of(Ingredient.SALATA_ICEBERG, Ingredient.BALSAMIC_VINAIGRETTE, Ingredient.MORCOVI_CU_SUSAN_SI_SOIA, Ingredient.SFECLA_ROSIE_MURATA, Ingredient.MASLINE, Ingredient.CEAPA_ROSIE_MURATA, Ingredient.BRANZA_TELEMEA, Ingredient.MINT_AND_BASIL))),
     THE_CAESAR("The caesar", 59.99, CategorieProdus.SALATA, new ArrayList<Ingredient>(List.of(Ingredient.SALATA_ICEBERG, Ingredient.BALSAMIC_VINAIGRETTE, Ingredient.ROSII_CHERRY, Ingredient.FULGI_DE_GRANA_PADANO, Ingredient.PUI_SLOW_COOKED, Ingredient.BACON, Ingredient.CRUTOANE, Ingredient.CREAMY_CAESAR, Ingredient.LIME))),
     CHICKEN_VIETNAMITA("Chicken vietnamita", 64.99, CategorieProdus.SALATA, new ArrayList<Ingredient>(List.of(Ingredient.BABY_SPANAC, Ingredient.ULEI_EVO_SI_LIME, Ingredient.COCONUT_BASMATTI, Ingredient.CARTOFI_DULCI_CU_ROZMARIN, Ingredient.BROCCOLI_CU_CHILLI_SI_LIME, Ingredient.VARZA_ROSIE, Ingredient.DOVLECEI, Ingredient.PUI_VIETNAMEZ, Ingredient.SOIA_FARA_GLUTEN))),
-    EXOTIC_SALMON("Exotic salmon", 64.99, CategorieProdus.SALATA, new ArrayList<Ingredient>(List.of(Ingredient.BABY_SPANAC, Ingredient.ULEI_EVO_SI_LIME, Ingredient.COCONUT_BASMATTI, Ingredient.CARTOFI_DULCI_CU_ROZMARIN, Ingredient.BROCCOLI_CU_CHILLI_SI_LIME, Ingredient.AVOCADO, Ingredient.SOMON_LA_GRATAR, Ingredient.WASABI_MAYO)));
+    EXOTIC_SALMON("Exotic salmon", 64.99, CategorieProdus.SALATA, new ArrayList<Ingredient>(List.of(Ingredient.BABY_SPANAC, Ingredient.ULEI_EVO_SI_LIME, Ingredient.COCONUT_BASMATTI, Ingredient.CARTOFI_DULCI_CU_ROZMARIN, Ingredient.BROCCOLI_CU_CHILLI_SI_LIME, Ingredient.AVOCADO, Ingredient.SOMON_LA_GRATAR, Ingredient.WASABI_MAYO))),
     
+    HUMMUS_SI_CRUTOANE("Hummus si crutoane", 16.9, CategorieProdus.GARNITURA, new ArrayList<Ingredient>(List.of(Ingredient.HUMUS_PICANT, Ingredient.CRUTOANE))),
+    OUA_SI_SPANAC("Oua si spanac", 18.9, CategorieProdus.GARNITURA, new ArrayList<Ingredient>(List.of(Ingredient.OU_FIERT, Ingredient.BABY_SPANAC))),
+    MEDITERANEANA("Salata mediteraneana", 16.9, CategorieProdus.GARNITURA, new ArrayList<Ingredient>(List.of(Ingredient.ROSII_CHERRY, Ingredient.CASTRAVETI, Ingredient.BRANZA_TELEMEA, Ingredient.ULEI_EVO))),
+    CARTOFI_DULCI_SI_MAIONEZA("Cartofi dulci cu maioneza", 22.99, CategorieProdus.GARNITURA, new ArrayList<Ingredient>(List.of(Ingredient.CARTOFI_DULCI_CU_ROZMARIN, Ingredient.HOUSE_MAYO))),
+    WASABI_PEAS("Mazare Wasabi", 18.9, CategorieProdus.GARNITURA, new ArrayList<Ingredient>(List.of(Ingredient.WASABI_PEAS))),
+    EDAMAME("Edamame", 16.9, CategorieProdus.GARNITURA, new ArrayList<Ingredient>(List.of(Ingredient.EDAMAME))),
+    GOMA_WAKAME("Alge Goma Wakame", 22.99, CategorieProdus.GARNITURA, new ArrayList<Ingredient>(List.of(Ingredient.WAKAME))),
+
+    TIRAMISU("Tiramisu",24.99, CategorieProdus.DESERT, new ArrayList<Ingredient>(List.of(Ingredient.TIRAMISU))),
+    BROWNIE("Brownie",15.9, CategorieProdus.DESERT, new ArrayList<Ingredient>(List.of(Ingredient.BROWNIE))),
+    MOCHI("Mochi",14.99, CategorieProdus.DESERT, new ArrayList<Ingredient>(List.of(Ingredient.MOCHI))),
+    MINI_FRUIT_BOWL("Mini bol cu fructe",19.50, CategorieProdus.DESERT, new ArrayList<Ingredient>(List.of(Ingredient.MANGO, Ingredient.LIME)))
+    ;
+
     private final String denumire;
     private final double pret;
     private final CategorieProdus categorieProdus;
@@ -29,7 +43,6 @@ public enum Produs{
         this.pret = pret;
         this.categorieProdus = categorieProdus;
         this.listaIngrediente = listaIngrediente;
-        this.discountProcent = 0;
         this.popularitate = 0;
     }
 
@@ -52,6 +65,13 @@ public enum Produs{
 
     @Override
     public String toString(){
-        return this.denumire + " - " + this.categorieProdus.toString() + ", " + this.pret + " lei - (" + this.popularitate + " popularitate)";
+        String string = this.denumire + " - " + this.categorieProdus.toString() + ", " + this.pret + " lei";
+        if(this.esteDisponibil()){
+            string += " (" + this.popularitate + " popularitate)";
+        }
+        else{
+            string += " (INDISPONIBIL)";
+        }
+        return string;
     }
 }

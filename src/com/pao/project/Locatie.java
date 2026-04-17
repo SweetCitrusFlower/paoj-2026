@@ -1,6 +1,5 @@
 package com.pao.project;
 
-import com.pao.project.enums.Angajat;
 import java.util.List;
 
 public class Locatie extends Adresa{
@@ -12,4 +11,9 @@ public class Locatie extends Adresa{
     }
     
     public List<Angajat> getAngajati() {return List.copyOf(angajati);}
+
+    @Override
+    public String toString(){
+        return "Strada '" + this.getNumeStrada() + "', nr. " + this.getNrStrada();
+    } 
 }

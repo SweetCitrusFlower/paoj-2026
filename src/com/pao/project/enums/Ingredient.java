@@ -73,11 +73,15 @@ public enum Ingredient {
     WASABI_PEAS("Wasabi peas", CategorieIngredient.TOPPING, 100),
     
     LIME("Lime", CategorieIngredient.TOPPING, 40),
-    SEMINTE_DE_SUSAN("Seminte de susan", CategorieIngredient.TOPPING, 1000);
+    SEMINTE_DE_SUSAN("Seminte de susan", CategorieIngredient.TOPPING, 1000),
+
+    TIRAMISU("Tiramisu", CategorieIngredient.DESERT, 30),
+    BROWNIE("Brownie", CategorieIngredient.DESERT, 30),
+    MOCHI("Mochi", CategorieIngredient.DESERT, 40);
 
     private final String nume;
     private final CategorieIngredient categorieIngredient;
-    private final int stoc;
+    private int stoc;
     
     Ingredient(String nume, CategorieIngredient categorieIngredient, int stoc) {
         this.nume = nume;
@@ -85,7 +89,9 @@ public enum Ingredient {
         this.stoc = stoc;
     }
 
-    public String getNume() {return this.nume;}
+    public String getNume() {return nume;}
     public CategorieIngredient getCategorieIngredient() {return categorieIngredient;}
     public int getStoc() {return stoc;}
+
+    public void setStoc(int stocNou) {this.stoc = stocNou;}
 }

@@ -1,6 +1,4 @@
-package com.pao.project.enums;
-
-import com.pao.project.Persoana;
+package com.pao.project;
 
 public class Angajat extends Persoana{
     private double salariu;
