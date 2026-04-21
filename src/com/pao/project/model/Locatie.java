@@ -1,16 +1,19 @@
-package com.pao.project;
+package com.pao.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Locatie extends Adresa{
-    private final List<Angajat> angajati;
+    private List<Angajat> angajati = new ArrayList<>();
     
     public Locatie(String numeStrada, int nrStrada, int codPostal, List<Angajat> angajati) {
         super(numeStrada, nrStrada, codPostal);
         this.angajati = angajati;
     }
+
+    public List<Angajat> getAngajati() {return angajati;}
     
-    public List<Angajat> getAngajati() {return List.copyOf(angajati);}
+    public void addAngajat(Angajat ang) {this.angajati.add(ang);}
 
     @Override
     public String toString(){

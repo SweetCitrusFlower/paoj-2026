@@ -1,4 +1,4 @@
-package com.pao.project;
+package com.pao.project.model;
 
 public abstract class Persoana {
     private final String nume;
@@ -14,4 +14,7 @@ public abstract class Persoana {
     public String getNume() {return nume;}
     public String getPrenume() {return prenume;}
     public String getNrTelefon() {return nrTelefon;}
+
+    public abstract double getSalariu();
+
 }

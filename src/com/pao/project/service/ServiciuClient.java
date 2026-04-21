@@ -1,14 +1,20 @@
-package com.pao.project;
+package com.pao.project.service;
 
-import com.pao.project.comparators.ComparatorProduseNume;
-import com.pao.project.comparators.ComparatorProdusePopularitate;
-import com.pao.project.comparators.ComparatorProdusePret;
-import com.pao.project.enums.CategorieProdus;
-import com.pao.project.enums.Ingredient;
-import com.pao.project.enums.Produs;
+import com.pao.project.model.AdresaLivrare;
+import com.pao.project.model.Angajat;
+import com.pao.project.model.CategorieProdus;
+import com.pao.project.model.Client;
+import com.pao.project.model.Comanda;
+import com.pao.project.model.Curier;
+import com.pao.project.model.Ingredient;
+import com.pao.project.model.Locatie;
+import com.pao.project.model.Produs;
+import com.pao.project.model.Reducere;
+import com.pao.project.model.comparators.ComparatorProduseNume;
+import com.pao.project.model.comparators.ComparatorProdusePopularitate;
+import com.pao.project.model.comparators.ComparatorProdusePret;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,101 +26,60 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Serviciu {
-
+public class ServiciuClient {
+    
     private static class InstanceHolder {
-        public static Serviciu instance = new Serviciu();
-        public static final List<Client> listaClienti = new ArrayList<>();
-        public static final List<Locatie> listaLocatii = new ArrayList<>();
+        public static ServiciuClient instance = new ServiciuClient();
     }
 
-    private Serviciu(){}
+    private ServiciuClient(){}
+    public static ServiciuClient getInstance() { return InstanceHolder.instance;}
 
-    private void seedData(){
-        Client AlexHancu = new Client("Hancu", "Alexandru", "0756462847", "alexhancu49@gmail.com","parola123");
-
-        Angajat MihaelaCurteanu = new Angajat("Curteanu", "Mihaela", "0765845361", 4200);
-        Angajat IoanaRusu = new Angajat("Rusu", "Ioana", "0707986754", 2168);
-        Angajat Adriana = new Angajat("Adriana", "Adriana", "0769696969", 4200);
-        Angajat Iasmina = new Angajat("Jasmine", "Iasmina", "0765432111", 4000);
-
-        Angajat Illia = new Curier("Savitski", "Illia", "37087875425", 4700);
-        Angajat Sofian = new Curier("Giuroiu", "Sofian", "0765879765", 99999);
-
-        Locatie Brezoianu = new Locatie("Ion Brezoianu", 24, 140020, List.of(IoanaRusu, Adriana, Sofian));
-        Locatie ParkLake = new Locatie("Park Lake", 1, 123456, List.of(MihaelaCurteanu, Iasmina, Illia));
-
-
-        InstanceHolder.listaClienti.add(AlexHancu);
-
-        InstanceHolder.listaLocatii.add(Brezoianu);
-        InstanceHolder.listaLocatii.add(ParkLake);
-    }
-
-    public static Serviciu getInstance() { return InstanceHolder.instance;}
-    public static List<Locatie> getLocatii() {return List.copyOf(InstanceHolder.listaLocatii);}
-
-    public void run(){
-        seedData();
-
-        try(Scanner sc = new Scanner(System.in).useDelimiter( "\\n");){
-            boolean loopedAlready = false;
-            while(true){
-                if(!loopedAlready){
-                    System.out.print("1. logare client\n");
-                    System.out.print("_. iesire din aplicatie\n");
-                    System.out.print("> ");
-                    loopedAlready = true;
+    protected void run(Scanner sc, Client cl){
+        while(true){
+            System.out.println("1. plaseaza o comanda");
+            System.out.println("2. afiseaza produsele");
+            System.out.println("3. verifica cardul de fidelitate");
+            System.out.println("4. afiseaza adresele tale de livrare");
+            System.out.println("5. adauga o adresa de livrare");
+            System.out.println("6. sterge o adresa de livrare");
+            System.out.println("7. afiseaza istoricul comenzilor tale");
+            System.out.println("_. delogare");    
+            System.out.print("> ");
+            switch(sc.next().strip()){
+                case "1" -> {
+                    plasareComanda(sc, cl);
                 }
-                switch(sc.nextLine().strip()){
-                    case "1" -> {
-                        System.out.print("email: ");
-                        String email = sc.next().strip();
-                        System.out.print("parola: ");
-                        String parola = sc.next().strip();
-                        boolean gasitUser = false;
-                        for (Client cl : Serviciu.InstanceHolder.listaClienti) {
-                            if(cl.getEmail().toLowerCase().compareTo(email.toLowerCase()) == 0 && 
-                            cl.getParola().compareTo(parola) == 0){
-                                System.out.println("Bine ai revenit, " + cl.getPrenume() + "!");
-                                ClientMenu(sc, cl);
-                                gasitUser = true;
-                            }
-                        }
-                        if(!gasitUser){
-                            System.out.println("Observam ca nu aveti cont. Haideti sa va facem unul!");
-                                
-                            System.out.print("Nume: ");
-                            String nume = sc.next().strip();
-                            System.out.print("Prenume: ");
-                            String prenume = sc.next().strip();
-                            System.out.print("Numar de telefon: ");
-                            String nrTelefon = sc.next().strip().toLowerCase();
-                            System.out.print("email: ");
-                            email = sc.next().strip();
-                            System.out.print("parola: ");
-                            parola = sc.next().strip();
-
-                            Client cl = new Client(nume, prenume, nrTelefon, email, parola);
-                            Serviciu.InstanceHolder.listaClienti.add(cl);
-                            
-                            System.out.println("Bun venit la noi, " + cl.getPrenume() + "!");
-                            ClientMenu(sc, cl);
-                        }
-                    }
-                    case "" -> {
-                        loopedAlready = false;
-                    }
-                    default -> {
-                        System.out.println("Bye bye!");
-                        System.out.flush();
-                        return;
-                    }
+                case "2" -> {
+                    afisareProduse(sc);
+                }
+                case "3" -> {
+                    System.out.println("Cardul a inregistrat " + cl.getCardFidelitate().getNrProduseIntroduse() + " boluri!");
+                    afisareReduceri(cl);
+                }
+                case "4" -> {
+                    afisareAdrese(cl);
+                }
+                case "5" -> {
+                    adaugareAdresa(sc, cl);
+                }
+                case "6" -> {
+                    stergereAdresa(sc, cl);
+                }
+                case "7" -> {
+                    afisareIstoricComenzi(cl);
+                }
+                default -> {
+                    System.out.println("Ne-a parut bine!");
+                    System.out.println();
+                    return;
                 }
             }
-        }
+            System.out.println();
+        }    
     }
 
+    
     private void ajustareStocuriIngrediente(Comanda comanda){
         for (Map.Entry<Produs, Integer> en : comanda.getProduseCantitate().entrySet()) {
             Produs produs = en.getKey();
@@ -132,21 +97,21 @@ public class Serviciu {
 
         System.out.println("Alegeti o locatie din ale noastre de unde sa comandati:");
         int i = 0;
-        for(Locatie loc : Serviciu.getLocatii()){
+        for(Locatie loc : ServiciuPrincipal.getListaLocatii()){
             System.out.println((++i) + ". " + loc.toString());
         }
         System.out.print("> ");
-        Locatie locatieAleasa = Serviciu.getLocatii().get(Integer.parseInt(sc.next().strip().toLowerCase()) - 1);
+        Locatie locatieAleasa = ServiciuPrincipal.getListaLocatii().get(Integer.parseInt(sc.next().strip().toLowerCase()) - 1);
         
         Map<Produs, Integer> map = new HashMap<>();
         boolean keepShopping;
         do {
-            afisareProduseCuComparator((Arrays.asList(CategorieProdus.values()))
+            afisareProduseCuComparatorSiDisponibilitate((Arrays.asList(CategorieProdus.values()))
                                         .stream()
                                         .collect(Collectors.toSet()), null, true);
             System.out.print("Introduceti indicele produsului si cantitatea dorita: ");
             String[] tokens = sc.next().strip().split(" ");
-            Produs pr = Produs.values()[Integer.parseInt(tokens[0]) - 1];
+            Produs pr = ServiciuPrincipal.getListaProduse().get(Integer.parseInt(tokens[0]) - 1);
             int cantitate = Integer.parseInt(tokens[1]);
             if(!pr.esteDisponibil()){
                 System.out.println("Produsul este indisponibil");
@@ -192,8 +157,8 @@ public class Serviciu {
         System.out.println("Comanda a fost plasata cu succes!");
     }
     
-    private void afisareProduseCuComparator(Set<CategorieProdus> setCat, Comparator<Produs> comp, boolean arataToateProdusele){
-        List<Produs> listaProdSort = (Arrays.asList(Produs.values()))
+    private void afisareProduseCuComparatorSiDisponibilitate(Set<CategorieProdus> setCat, Comparator<Produs> comp, boolean arataToateProdusele){
+        List<Produs> listaProdSort = (ServiciuPrincipal.getListaProduse())
                                 .stream()
                                 .filter(cat -> setCat.contains(cat.getCategorieProdus()))
                                 .filter(cat -> cat.esteDisponibil() || arataToateProdusele)
@@ -216,9 +181,8 @@ public class Serviciu {
         
         Set<CategorieProdus> SetCategoriiProdus = new HashSet<>();
         String[] tokens = sc.next().strip().split(" ");
-        
+
         for (String input : tokens) {
-            System.out.println(input.getClass());
             CategorieProdus cat;
             switch(input){
                 case "1" -> {
@@ -270,7 +234,7 @@ public class Serviciu {
             }
         }
  
-        afisareProduseCuComparator(SetCategoriiProdus, comp, disp);
+        afisareProduseCuComparatorSiDisponibilitate(SetCategoriiProdus, comp, disp);
     }
 
     private void afisareReduceri(Client cl){
@@ -317,7 +281,7 @@ public class Serviciu {
         System.out.println("Ce adresa doriti sa stergeti? (1 - " + cl.getListaAdreseLivrare().size() + "): ");
         try {
             int ind = Integer.parseInt(sc.next().strip());
-            cl.getListaAdreseLivrare().remove(ind - 1);
+            cl.stergereAdresaLivrare(ind - 1);
             System.out.println("Adresa nr. " + ind + " a fost stearsa.");
         } catch (NumberFormatException e) {
             System.out.println("Va rog introduceti un numar intre 1 si " + cl.getListaAdreseLivrare().size() + ".");
@@ -338,50 +302,7 @@ public class Serviciu {
                 nrTotalProduse += pc.getValue();
                 sumaComanda += pc.getValue() * pc.getKey().getPret() * (1 - pc.getKey().getDiscountProcent() / 100);
             }
-            System.out.println("Comanda nr. " + (++i) + ": " + nrTotalProduse + " produse, " + df.format(sumaComanda) + " lei, plasata la " + com.getDataPlasare() + ", cu adresa de livrare \"" + com.getAdresaLivrare().toString() + "\", livrata de " + com.getCurier().getNume());
+            System.out.println("Comanda nr. " + (++i) + " (" + com.getStatus().name() + "): " + nrTotalProduse + " produse, " + df.format(sumaComanda) + " lei, plasata la " + com.getDataPlasare() + ", cu adresa de livrare \"" + com.getAdresaLivrare().toString() + "\", livrata de " + com.getCurier().getPrenume());
         }
-    }
-    
-    protected void ClientMenu(Scanner sc, Client cl){
-        while(true){
-            System.out.println("1. plaseaza o comanda");
-            System.out.println("2. afiseaza produsele");
-            System.out.println("3. verifica cardul de fidelitate");
-            System.out.println("4. afiseaza adresele tale de livrare");
-            System.out.println("5. adauga o adresa de livrare");
-            System.out.println("6. sterge o adresa de livrare");
-            System.out.println("7. afiseaza istoricul comenzilor tale");
-            System.out.println("_. delogare");    
-            System.out.print("> ");
-            switch(sc.next().strip()){
-                case "1" -> {
-                    plasareComanda(sc, cl);
-                }
-                case "2" -> {
-                    afisareProduse(sc);
-                }
-                case "3" -> {
-                    System.out.println("Cardul a inregistrat " + cl.getCardFidelitate().getNrProduseIntroduse() + " boluri!");
-                    afisareReduceri(cl);
-                }
-                case "4" -> {
-                    afisareAdrese(cl);
-                }
-                case "5" -> {
-                    adaugareAdresa(sc, cl);
-                }
-                case "6" -> {
-                    stergereAdresa(sc, cl);
-                }
-                case "7" -> {
-                    afisareIstoricComenzi(cl);
-                }
-                default -> {
-                    System.out.println("Ne-a parut bine!");
-                    return;
-                }
-            }
-            System.out.println();
-        }    
     }
 }

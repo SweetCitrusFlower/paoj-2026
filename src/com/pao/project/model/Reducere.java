@@ -1,4 +1,4 @@
-package com.pao.project;
+package com.pao.project.model;
 
 import java.util.function.Function;
 

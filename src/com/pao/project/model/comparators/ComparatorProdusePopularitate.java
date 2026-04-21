@@ -1,7 +1,8 @@
-package com.pao.project.comparators;
+package com.pao.project.model.comparators;
 
-import com.pao.project.enums.Produs;
 import java.util.Comparator;
+
+import com.pao.project.model.Produs;
 
 public class ComparatorProdusePopularitate implements Comparator<Produs>{
     @Override

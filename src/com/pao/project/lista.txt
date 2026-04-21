@@ -28,39 +28,23 @@ Obiecte:
 
 Clasa (Singleton) "Serviciu", expune operatiile sistemului:
 	1. Logare client
-		1. Ai cont? (Y/N)
-			Y. introducere nume prenume parola
+		introducere email parola
+			nu exista -> introducere nume prenume nrTelefon email parola -> logare
+			logare ->
 				1.1 plasare comanda
 				
-				1.2 afisare produse + disponibilitate
-					1.2.1 dintr-o categorie
+				1.2 afisare produse
+					1.2.1 din categorii
 					1.2.2 sortate dupa un anumit criteriu (pret, nume, popularitate(de cate ori au fost comandate produsele))
+					1.2.3 doar cele disponibile / toate
 				
-				1.3 afisare reduceri disponibile
+				1.3 afisare detalii card fidelitate
 				
 				1.4 afisare adrese de livrare
 				1.5 adaugare adresa de livrare
 				1.6 stergere adresa livrare
 				
 				1.7 afisare istoric comenzi
-				1.8 iesire din meniu client (delogare)
-			
-			N. Inregistrare: introduce nume prenume rnTelefon parola
-				-> logare automata -> Y. ...
-
-	2. logare admin
-		1. introducere username(AdMiNpOkE), parola (PAROLApoke2005!@!@!@)
-			2.1 stergere produs
-			2.2 adaugare produs
-			
-			2.3 afisare stocuri ingrediente
-
-			2.4 afisare clienti
-
-			2.5 mareste salariul unui Angajat
-
-			2.6 transfera un bucatar la o alta locatie
-			
-			2.5 iesire din meniu admin (delogare)
+				_. iesire din meniu client (delogare)
 
 	3. iesire din aplicatie

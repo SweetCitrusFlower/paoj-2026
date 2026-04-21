@@ -1,4 +1,4 @@
-package com.pao.project;
+package com.pao.project.model;
 
 public class AdresaLivrare extends Adresa{
     private final int nrApartament;
