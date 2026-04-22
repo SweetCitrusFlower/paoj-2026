@@ -38,48 +38,48 @@ public class Main {
         // }
 
         // ServiciuPrincipal.getInstance().run(System.in);
-        try(Scanner sc = new Scanner(System.in)){
-            
-        while (true) { 
-            System.out.println("");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("");
-            System.out.println("Testare:");
-            System.out.println("1. ServiciuClient - creare cont nou client");
-            System.out.println("2. ServiciuClient - plasare comanda");
-            System.out.println("3. ServiciuClient - afisare anumite produse disponibile, sortate dupa popularitate");
-            System.out.println("4. ServiciuClient - afisare card fidelitate");
-            System.out.println("5. ServiciuClient - afisare adrese livrare");
-            System.out.println("6. ServiciuClient - adaugare adresa livrare");
-            System.out.println("7. ServiciuClient - stergere adresa livrare");
-            System.out.println("8. ServiciuClient - afisare istoric comenzi");
 
-            System.out.println("9. ServiciuAdmin - adaugare ingredient nou");
-            System.out.println("10. ServiciuAdmin - adaugare produs nou");
-            System.out.println("11. ServiciuAdmin - adaugare angajat nou");
-            System.out.println("12. ServiciuAdmin - afisare toate ingredientele");
-            System.out.println("13. ServiciuAdmin - afisare toate produsele");
-            System.out.println("14. ServiciuAdmin - afisare toti angajatii");
-            System.out.println("15. ServiciuAdmin - afisare toti clientii");
-            System.out.println("out. iesire din testare "); 
-            String input = sc.next().strip();
-            try {
-                StringWriter sw = new StringWriter();
-                PrintWriter out = new PrintWriter(sw);
-                int number = Integer.parseInt(input);
-                if(number <= 0 || number >= 16)
-                    throw new NumberFormatException();
-                for (String s : teste[number - 1]) {out.println(s);}
-                InputStream stream = new ByteArrayInputStream(sw.toString().getBytes());
-                ServiciuPrincipal.getInstance().run(stream);
-            } catch (NumberFormatException e) {
-                switch(input){
-                    case "out" -> {return;}
-                    default -> {System.out.println("Input necunoscut; incercati din nou.");}
+
+        try(Scanner sc = new Scanner(System.in)){   
+            while (true) {
+                System.out.println("");
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("");
+                System.out.println("Testare:");
+                System.out.println("1. ServiciuClient - creare cont nou client");
+                System.out.println("2. ServiciuClient - plasare comanda");
+                System.out.println("3. ServiciuClient - afisare anumite produse disponibile, sortate dupa popularitate");
+                System.out.println("4. ServiciuClient - afisare card fidelitate");
+                System.out.println("5. ServiciuClient - afisare adrese livrare");
+                System.out.println("6. ServiciuClient - adaugare adresa livrare");
+                System.out.println("7. ServiciuClient - stergere adresa livrare");
+                System.out.println("8. ServiciuClient - afisare istoric comenzi");
+
+                System.out.println("9. ServiciuAdmin - adaugare ingredient nou");
+                System.out.println("10. ServiciuAdmin - adaugare produs nou");
+                System.out.println("11. ServiciuAdmin - adaugare angajat nou");
+                System.out.println("12. ServiciuAdmin - afisare toate ingredientele");
+                System.out.println("13. ServiciuAdmin - afisare toate produsele");
+                System.out.println("14. ServiciuAdmin - afisare toti angajatii");
+                System.out.println("15. ServiciuAdmin - afisare toti clientii");
+                System.out.println("out. iesire din testare "); 
+                String input = sc.next().strip();
+                try {
+                    StringWriter sw = new StringWriter();
+                    PrintWriter out = new PrintWriter(sw);
+                    int number = Integer.parseInt(input);
+                    if(number <= 0 || number >= 16)
+                        throw new NumberFormatException();
+                    for (String s : teste[number - 1]) {out.println(s);}
+                    InputStream stream = new ByteArrayInputStream(sw.toString().getBytes());
+                    ServiciuPrincipal.getInstance().run(stream);
+                } catch (NumberFormatException e) {
+                    switch(input){
+                        case "out" -> {return;}
+                        default -> {System.out.println("Input necunoscut; incercati din nou.");}
+                    }
                 }
             }
-        }
-
         }
     }
 }
