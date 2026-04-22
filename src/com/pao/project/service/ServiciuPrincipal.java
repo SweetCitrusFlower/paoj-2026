@@ -292,7 +292,7 @@ public class ServiciuPrincipal {
                 if(!loopedAlready){
                     System.out.println("1. logare client");
                     System.out.println("2. logare admin");
-                    System.out.println("_. iesire din aplicatie");
+                    System.out.println("out. iesire din aplicatie");
                     System.out.print("> ");
                     loopedAlready = true;
                 }
@@ -349,10 +349,13 @@ public class ServiciuPrincipal {
                     case "" -> {
                         loopedAlready = false;
                     }
-                    default -> {
+                    case "out" -> {
                         System.out.println("Bye bye!");
                         System.out.flush();
                         return;
+                    }
+                    default -> {
+                        System.out.println("Input necunoscut; incercati din nou.");
                     }
                 }
             }

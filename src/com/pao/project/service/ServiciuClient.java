@@ -15,6 +15,7 @@ import com.pao.project.model.comparators.ComparatorProdusePopularitate;
 import com.pao.project.model.comparators.ComparatorProdusePret;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class ServiciuClient {
             System.out.println("5. adauga o adresa de livrare");
             System.out.println("6. sterge o adresa de livrare");
             System.out.println("7. afiseaza istoricul comenzilor tale");
-            System.out.println("_. delogare");    
+            System.out.println("out. delogare");    
             System.out.print("> ");
             switch(sc.next().strip()){
                 case "1" -> {
@@ -69,11 +70,15 @@ public class ServiciuClient {
                 case "7" -> {
                     afisareIstoricComenzi(cl);
                 }
-                default -> {
+                case "out" -> {
                     System.out.println("Ne-a parut bine!");
                     System.out.println();
                     return;
                 }
+                default -> {
+                    System.out.println("Input necunoscut; incercati din nou.");
+                }
+
             }
             System.out.println();
         }    
@@ -136,7 +141,7 @@ public class ServiciuClient {
 
         Random r = new Random();
         List<Angajat> curieriLocatie = locatieAleasa.getAngajati().stream().filter(ang -> ang instanceof Curier).collect(Collectors.toList());
-        Comanda com = new Comanda(adrLivr, map, (Curier) curieriLocatie.get(r.nextInt(curieriLocatie.size())), locatieAleasa);
+        Comanda com = new Comanda(adrLivr, map, (Curier) curieriLocatie.get(r.nextInt(curieriLocatie.size())), locatieAleasa, LocalDateTime.now());
         
         cl.adaugareProduseInCardFidelitate(com);
         ajustareStocuriIngrediente(com);
@@ -279,12 +284,15 @@ public class ServiciuClient {
         if(cl.getListaAdreseLivrare().isEmpty())
             return;
         System.out.println("Ce adresa doriti sa stergeti? (1 - " + cl.getListaAdreseLivrare().size() + "): ");
-        try {
-            int ind = Integer.parseInt(sc.next().strip());
-            cl.stergereAdresaLivrare(ind - 1);
-            System.out.println("Adresa nr. " + ind + " a fost stearsa.");
-        } catch (NumberFormatException e) {
-            System.out.println("Va rog introduceti un numar intre 1 si " + cl.getListaAdreseLivrare().size() + ".");
+        while(true){
+            try {
+                int ind = Integer.parseInt(sc.next().strip());
+                cl.stergereAdresaLivrare(ind - 1);
+                System.out.println("Adresa nr. " + ind + " a fost stearsa.");
+                return;
+            } catch (NumberFormatException e) {
+                System.out.println("Va rog introduceti un numar intre 1 si " + cl.getListaAdreseLivrare().size() + ".");
+            }
         }
     }
 
@@ -302,7 +310,7 @@ public class ServiciuClient {
                 nrTotalProduse += pc.getValue();
                 sumaComanda += pc.getValue() * pc.getKey().getPret() * (1 - pc.getKey().getDiscountProcent() / 100);
             }
-            System.out.println("Comanda nr. " + (++i) + " (" + com.getStatus().name() + "): " + nrTotalProduse + " produse, " + df.format(sumaComanda) + " lei, plasata la " + com.getDataPlasare() + ", cu adresa de livrare \"" + com.getAdresaLivrare().toString() + "\", livrata de " + com.getCurier().getPrenume());
+            System.out.println("Comanda nr. " + (++i) + ": " + nrTotalProduse + " produse, " + df.format(sumaComanda) + " lei, plasata la " + com.getDataPlasare() + ", cu adresa de livrare \"" + com.getAdresaLivrare().toString() + "\", livrata de " + com.getCurier().getPrenume());
         }
     }
 }

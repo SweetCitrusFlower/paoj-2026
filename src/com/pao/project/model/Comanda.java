@@ -3,36 +3,18 @@ package com.pao.project.model;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public class Comanda {
-    private final Map<Produs, Integer> produseCantitate;
-    private final LocalDateTime dataPlasare;
-    private Status status;
-    private final Curier curier;
-    private final Locatie locatie;
-    private final AdresaLivrare adresaLivrare;
+public record Comanda(AdresaLivrare adresaLivrare, Map<Produs, Integer> produseCantitate, Curier curier, Locatie locatie, LocalDateTime dataPlasare) {
 
-    public Comanda(AdresaLivrare adresaLivrare, Map<Produs, Integer> produseCantitate, Curier curier, Locatie locatie) {
+    public Comanda(AdresaLivrare adresaLivrare, Map<Produs, Integer> produseCantitate, Curier curier, Locatie locatie, LocalDateTime dataPlasare) {
         this.curier = curier;
         this.locatie = locatie;
         this.adresaLivrare = adresaLivrare;
         this.produseCantitate = produseCantitate;
-
-        this.status = Status.PLASATA;
         this.dataPlasare = LocalDateTime.now();
-    }
-
-    public Comanda(Comanda com) {
-        this.adresaLivrare = com.adresaLivrare;
-        this.curier = com.curier;
-        this.dataPlasare = com.dataPlasare;
-        this.locatie = com.locatie;
-        this.produseCantitate = Map.copyOf(com.produseCantitate);
-        this.status = com.status;
     }
 
     public Map<Produs, Integer> getProduseCantitate() {return Map.copyOf(produseCantitate);}
     public LocalDateTime getDataPlasare() {return dataPlasare;}
-    public Status getStatus() {return status;}
     public Curier getCurier() {return curier;}
     public Locatie getLocatie() {return locatie;}
     public AdresaLivrare getAdresaLivrare() {return adresaLivrare;}

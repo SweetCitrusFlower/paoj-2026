@@ -6,6 +6,7 @@ import com.pao.project.exception.IngredientulNuExista;
 import com.pao.project.model.Angajat;
 import com.pao.project.model.CategorieIngredient;
 import com.pao.project.model.CategorieProdus;
+import com.pao.project.model.Client;
 import com.pao.project.model.Curier;
 import com.pao.project.model.Ingredient;
 import com.pao.project.model.Locatie;
@@ -31,7 +32,8 @@ public class ServiciuAdmin {
             System.out.println("4. Afisare ingrediente");
             System.out.println("5. Afisare produse");
             System.out.println("6. Afisare angajati");
-            System.out.println("_. delogare");    
+            System.out.println("7. Afisare clienti");
+            System.out.println("out. delogare");    
             System.out.print("> ");
             switch(sc.next().strip()){
                 case "1" -> {
@@ -52,10 +54,16 @@ public class ServiciuAdmin {
                 case "6" -> {
                     afisareAngajati();
                 }
-                default -> {
+                case "7" -> {
+                    afisareClienti();
+                }
+                case "out" -> {
                     System.out.println("Adios!");
                     System.out.println();
                     return;
+                }
+                default -> {
+                    System.out.println("Input necunoscut; incercati din nou.");
                 }
             }
             System.out.println();
@@ -201,6 +209,13 @@ public class ServiciuAdmin {
         int i = 0;
         for(Angajat ang : ServiciuPrincipal.getListaAngajati()){
             System.out.println(++i + ". " + ang.toString());
+        }
+    }
+
+    private void afisareClienti() {
+        int i = 0;
+        for(Client cl : ServiciuPrincipal.getListaClienti()){
+            System.out.println(++i + ". " + cl.toString());
         }
     }
 }

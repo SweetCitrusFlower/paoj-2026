@@ -103,6 +103,11 @@ public class Client extends Persoana{
     }
 
     @Override
+    public String toString(){
+        return this.getNume() + " " + this.getPrenume() + ", nr. telefon: " + this.getNrTelefon() + ", email: " + this.getEmail();
+    }
+
+    @Override
     public double getSalariu() {
         return 0.0;
     }
