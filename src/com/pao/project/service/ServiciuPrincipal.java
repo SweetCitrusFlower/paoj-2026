@@ -35,7 +35,7 @@ public class ServiciuPrincipal {
             Angajat MihaelaCurteanu = new Angajat("Curteanu", "Mihaela", "0765845361", 4200);
             Angajat IoanaRusu = new Angajat("Rusu", "Ioana", "0707986754", 2168);
             Angajat Adriana = new Angajat("Adriana", "Adriana", "0769696969", 4200);
-            Angajat Iasmina = new Angajat("Jasmine", "Iasmina", "0765432111", 4000);
+            Angajat Iasmina = new Angajat("Tudor", "Iasmina", "0765432111", 4000);
 
             Angajat Illia = new Curier("Savitski", "Illia", "37087875425", 4700);
             Angajat Sofian = new Curier("Giuroiu", "Sofian", "0765879765", 99999);

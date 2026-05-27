@@ -33,7 +33,9 @@ public class ExampleEnum {
             this.radius = radius;
         }
 
+        @SuppressWarnings("unused")
         public double getMass() { return mass; }
+        @SuppressWarnings("unused")
         public double getRadius() { return radius; }
 
         // Fiecare constantă trebuie să implementeze această metodă
@@ -72,10 +74,10 @@ public class ExampleEnum {
         // switch pe enum
         System.out.println("\nSwitch:");
         switch (current) {
-            case SPRING: System.out.println("🌸 Primăvară!"); break;
-            case SUMMER: System.out.println("☀️ Vară!"); break;
-            case AUTUMN: System.out.println("🍂 Toamnă!"); break;
-            case WINTER: System.out.println("❄️ Iarnă!"); break;
+            case SPRING -> System.out.println("🌸 Primăvară!");
+            case SUMMER -> System.out.println("☀️ Vară!");
+            case AUTUMN -> System.out.println("🍂 Toamnă!");
+            case WINTER -> System.out.println("❄️ Iarnă!");
         }
 
         // === Enum cu câmpuri și metodă abstractă ===

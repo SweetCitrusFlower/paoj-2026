@@ -42,6 +42,7 @@ public class ExampleExceptions {
         return balance - amount;
     }
 
+    @SuppressWarnings("null")
     public static void main(String[] args) {
 
         // === 1. try-catch simplu ===
