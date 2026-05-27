@@ -4,10 +4,11 @@ import java.util.List;
 
 public class Produs{
 
-    private final String denumire;
-    private final double pret;
-    private final CategorieProdus categorieProdus;
-    private final List<Ingredient> listaIngrediente;
+    private long id;
+    private String denumire;
+    private double pret;
+    private CategorieProdus categorieProdus;
+    private List<Ingredient> listaIngrediente;
     private double discountProcent;
     public int popularitate;
     
@@ -19,9 +20,14 @@ public class Produs{
         this.popularitate = 0;
     }
 
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
     public String getDenumire() {return denumire;}
+    public void setDenumire(String denumire) { this.denumire = denumire;}
     public double getPret() {return pret;}
+    public void setPret(double pret) { this.pret = pret;}
     public CategorieProdus getCategorieProdus() {return categorieProdus;}
+    public void setCategorieProdus(CategorieProdus cat) { this.categorieProdus = cat;}
     public List<Ingredient> getListaIngrediente() {return List.copyOf(listaIngrediente);}
     public double getDiscountProcent() {return discountProcent;}
     public int getpopularitate() {return popularitate;}
@@ -91,4 +97,6 @@ public class Produs{
             return false;
         return popularitate == other.popularitate;
     }
+
+
 }

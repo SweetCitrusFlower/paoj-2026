@@ -3,6 +3,7 @@ package com.pao.project.model;
 import java.util.Objects;
 
 public class Ingredient {
+    private long id;
     private final String nume;
     private final CategorieIngredient categorieIngredient;
     private int stoc;
@@ -13,6 +14,9 @@ public class Ingredient {
         this.stoc = stoc;
     }
 
+    public long getId() {return id;}
+    public void setId(long id) {this.id = id;}
+    
     public String getNume() {return nume;}
     public CategorieIngredient getCategorieIngredient() {return categorieIngredient;}
     public int getStoc() {return stoc;}
