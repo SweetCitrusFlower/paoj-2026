@@ -8,7 +8,7 @@ public class Produs{
     private String denumire;
     private double pret;
     private CategorieProdus categorieProdus;
-    private List<Ingredient> listaIngrediente;
+    private final List<Ingredient> listaIngrediente;
     private double discountProcent;
     public int popularitate;
     
@@ -30,7 +30,7 @@ public class Produs{
     public void setCategorieProdus(CategorieProdus cat) { this.categorieProdus = cat;}
     public List<Ingredient> getListaIngrediente() {return List.copyOf(listaIngrediente);}
     public double getDiscountProcent() {return discountProcent;}
-    public int getpopularitate() {return popularitate;}
+    public int getPopularitate() {return popularitate;}
 
     public void setDiscountProcent(double discount){this.discountProcent = discount;}
 

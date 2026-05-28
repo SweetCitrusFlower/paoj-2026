@@ -12,13 +12,18 @@ public class ServiciuPrincipal {
 
     private static class InstanceHolder {
         public static ServiciuPrincipal instance = new ServiciuPrincipal();
-        public static final List<Client> listaClienti = initiereClienti();
 
+        public static  List<Client> listaClienti = new ArrayList<>();
         public static final List<Locatie> listaLocatii = new ArrayList<>();
-        public static final List<Angajat> listaAngajati = initiereAngajati_setareLocatii();
-
+        public static  List<Angajat> listaAngajati = new ArrayList<>();
         public static final List<Produs> listaProduse = new ArrayList<>();
-        public static final List<Ingredient> listaIngediente = initiereIngrediente_setareProduse();
+        public static  List<Ingredient> listaIngediente = new ArrayList<>();
+
+        private static void seedData(){
+            InstanceHolder.listaClienti = initiereClienti();
+            InstanceHolder.listaAngajati = initiereAngajati_setareLocatii();
+            InstanceHolder.listaIngediente = initiereIngrediente_setareProduse();
+        }
 
         private static List<Client> initiereClienti(){
             List<Client> lista = new ArrayList<>();
@@ -32,13 +37,13 @@ public class ServiciuPrincipal {
         private static List<Angajat> initiereAngajati_setareLocatii(){       
             List<Angajat> lista = new ArrayList<>();
             
-            Angajat MihaelaCurteanu = new Angajat("Curteanu", "Mihaela", "0765845361", 4200);
-            Angajat IoanaRusu = new Angajat("Rusu", "Ioana", "0707986754", 2168);
-            Angajat Adriana = new Angajat("Adriana", "Adriana", "0769696969", 4200);
-            Angajat Iasmina = new Angajat("Tudor", "Iasmina", "0765432111", 4000);
+            Angajat MihaelaCurteanu = new Angajat("Curteanu", "Mihaela", "0765845361", 4200, false);
+            Angajat IoanaRusu = new Angajat("Rusu", "Ioana", "0707986754", 2168, false);
+            Angajat Adriana = new Angajat("Adriana", "Adriana", "0769696969", 4200, false);
+            Angajat Iasmina = new Angajat("Tudor", "Iasmina", "0765432111", 4000, false);
 
-            Angajat Illia = new Curier("Savitski", "Illia", "37087875425", 4700);
-            Angajat Sofian = new Curier("Giuroiu", "Sofian", "0765879765", 99999);
+            Angajat Illia = new Angajat("Savitski", "Illia", "37087875425", 4700, true);
+            Angajat Sofian = new Angajat("Giuroiu", "Sofian", "0765879765", 99999, true);
         
             lista.add(MihaelaCurteanu);
             lista.add(IoanaRusu);
@@ -47,8 +52,8 @@ public class ServiciuPrincipal {
             lista.add(Illia);
             lista.add(Sofian);
             
-            Locatie Brezoianu = new Locatie("Ion Brezoianu", 24, 140020, new ArrayList<>(List.of(IoanaRusu, Adriana, Sofian)));
-            Locatie ParkLake = new Locatie("Park Lake", 1, 123456, new ArrayList<>(List.of(MihaelaCurteanu, Iasmina, Illia)));
+            Locatie Brezoianu = new Locatie("Ion Brezoianu", 24, 140020, 1, new ArrayList<>(List.of(IoanaRusu, Adriana, Sofian)));
+            Locatie ParkLake = new Locatie("Park Lake", 1, 123456, 13, new ArrayList<>(List.of(MihaelaCurteanu, Iasmina, Illia)));
 
             InstanceHolder.listaLocatii.add(Brezoianu);
             InstanceHolder.listaLocatii.add(ParkLake);   
@@ -286,6 +291,7 @@ public class ServiciuPrincipal {
     }
 
     public void run(InputStream in){
+        InstanceHolder.seedData();
         try(Scanner sc = new Scanner(in).useDelimiter( "\\n");){
             boolean loopedAlready = false;
             while(true){
@@ -301,7 +307,7 @@ public class ServiciuPrincipal {
                         boolean foundUser = false;
                         System.out.print("email: ");
                         String email = sc.next().strip();
-                        for (Client cl : ServiciuPrincipal.InstanceHolder.listaClienti) {
+                        for (Client cl : InstanceHolder.listaClienti) {
                             if(cl.getEmail().toLowerCase().equalsIgnoreCase(email)){
                                 System.out.println("Email gasit");
 
@@ -329,7 +335,7 @@ public class ServiciuPrincipal {
                             String parola = sc.next().strip();
 
                             Client cl = new Client(nume, prenume, nrTelefon, email, parola);
-                            ServiciuPrincipal.InstanceHolder.listaClienti.add(cl);
+                            InstanceHolder.listaClienti.add(cl);
                             
                             System.out.println("Bun venit la noi, " + cl.getPrenume() + "!");
                             

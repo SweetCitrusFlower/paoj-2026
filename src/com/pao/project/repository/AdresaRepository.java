@@ -1,7 +1,6 @@
 package com.pao.project.repository;
 
-import com.pao.project.model.CategorieIngredient;
-import com.pao.project.model.Ingredient;
+import com.pao.project.model.Adresa;
 import com.pao.project.util.DatabaseConnection;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,28 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-class IngredientRepository implements Repository<Ingredient, Long>{
+public class AdresaRepository implements Repository<Adresa, Long>{
+    
     private Connection getConn() throws SQLException, IOException {
         return DatabaseConnection.getInstance().getConnection();
     }
 
-    static Ingredient mapRow(ResultSet rs) throws SQLException {
-        Ingredient a = new Ingredient(rs.getString("nume"), 
-                                        CategorieIngredient.valueOf(rs.getString("categorie")),
-                                    rs.getInt("stoc"));
+    static Adresa mapRow(ResultSet rs) throws SQLException {
+        Adresa a = new Adresa(rs.getString("nume_strada"), 
+                                rs.getInt("nr_strada"),
+                                rs.getInt("cod_postal"),
+                                rs.getInt("nr_apartament"));
         a.setId(rs.getLong("id"));
         return a;
     }
-    
     @Override
-    public void save(Ingredient entity) throws SQLException {
-        String sql = "INSERT INTO ingredient (nume, categorie, stoc) VALUES (?, ?, ?)";
+    public void save(Adresa entity) throws SQLException {
+        String sql = "INSERT INTO adresa (nume_strada, nr_strada, cod_postal, nr_apartament) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = getConn().prepareStatement(sql
                 ,Statement.RETURN_GENERATED_KEYS
             )) {
-            ps.setString(1, entity.getNume());
-            ps.setString(2, entity.getCategorieIngredient().toString());
-            ps.setInt(3, entity.getStoc());
+            ps.setString(1, entity.getNumeStrada());
+            ps.setInt(2, entity.getNrStrada());
+            ps.setInt(3, entity.getCodPostal());
+            ps.setInt(4, entity.getNrApartament());
             ps.executeUpdate();
             // Preluam ID-ul generat automat de baza de date
             try (ResultSet keys = ps.getGeneratedKeys()) {
@@ -48,8 +49,8 @@ class IngredientRepository implements Repository<Ingredient, Long>{
     }
 
     @Override
-    public Optional<Ingredient> findById(Long id) throws SQLException {
-        String sql = "SELECT nume, categorie, stoc FROM ingredient WHERE id = ?";
+    public Optional<Adresa> findById(Long id) throws SQLException {
+        String sql = "SELECT nume_strada, nr_strada, cod_postal, nr_apartament FROM Adresa WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -62,9 +63,9 @@ class IngredientRepository implements Repository<Ingredient, Long>{
     }
 
     @Override
-    public List<Ingredient> findAll() throws SQLException {
-        String sql = "SELECT * FROM ingredient";
-        List<Ingredient> list = new ArrayList<>();
+    public List<Adresa> findAll() throws SQLException {
+        String sql = "SELECT * FROM Adresa";
+        List<Adresa> list = new ArrayList<>();
         try (PreparedStatement ps = getConn().prepareStatement(sql);
             ResultSet resultset = ps.executeQuery()) {
             while (resultset.next()) list.add(mapRow(resultset));
@@ -75,13 +76,14 @@ class IngredientRepository implements Repository<Ingredient, Long>{
     }
 
     @Override
-    public void update(Ingredient entity) throws SQLException {
-        String sql = "UPDATE ingredient SET nume = ?, categorie = ?, stoc = ? WHERE id = ?";
+    public void update(Adresa entity) throws SQLException {
+        String sql = "UPDATE adresa SET nume_strada = ?, nr_strada = ?, cod_postal = ?, nr_apartament = ? WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
-            ps.setString(1, entity.getNume());
-            ps.setString(2, entity.getCategorieIngredient().toString());
-            ps.setInt(3, entity.getStoc());
-            ps.setLong(4, entity.getId());
+            ps.setString(1, entity.getNumeStrada());
+            ps.setInt(2, entity.getNrStrada());
+            ps.setInt(3, entity.getCodPostal());
+            ps.setInt(4, entity.getNrApartament());
+            ps.setLong(5, entity.getId());
             ps.executeUpdate();
         } catch (IOException e) {
             throw new SQLException(e);
@@ -90,7 +92,7 @@ class IngredientRepository implements Repository<Ingredient, Long>{
 
     @Override
     public void delete(Long id) throws SQLException {
-        String sql = "DELETE FROM ingredient WHERE id = ?";
+        String sql = "DELETE FROM adresa WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setLong(1, id);
             ps.executeUpdate();
@@ -98,5 +100,4 @@ class IngredientRepository implements Repository<Ingredient, Long>{
             throw new SQLException(e);
         }
     }
-
 }

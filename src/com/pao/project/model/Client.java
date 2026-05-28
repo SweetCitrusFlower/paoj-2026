@@ -9,7 +9,7 @@ public class Client extends Persoana{
     private final String email;
     private final String parola;
     private final CardFidelitate cardFidelitate;
-    private final List<AdresaLivrare> listaAdreseLivrare;
+    private final List<Adresa> listaAdreseLivrare;
     private final List<Comanda> listaComenzi;
 
     public Client(String nume, String prenume, String nrTelefon, String email, String parola) {
@@ -24,10 +24,11 @@ public class Client extends Persoana{
     public String getEmail(){return this.email;}
     public String getParola(){return this.parola;}
     public CardFidelitate getCardFidelitate() {return this.cardFidelitate;} 
-    public List<AdresaLivrare> getListaAdreseLivrare() {return List.copyOf(listaAdreseLivrare);}
+    public List<Adresa> getListaAdreseLivrare() {return List.copyOf(listaAdreseLivrare);}
     public List<Comanda> getListaComenzi() {return List.copyOf(listaComenzi);}
 
-    public void adaugareAdresaLivrare(AdresaLivrare adr){
+
+    public void adaugareAdresaLivrare(Adresa adr){
         this.listaAdreseLivrare.add(adr);
     }
 

@@ -7,10 +7,15 @@ import com.pao.project.model.Angajat;
 import com.pao.project.model.CategorieIngredient;
 import com.pao.project.model.CategorieProdus;
 import com.pao.project.model.Client;
-import com.pao.project.model.Curier;
 import com.pao.project.model.Ingredient;
 import com.pao.project.model.Locatie;
 import com.pao.project.model.Produs;
+import com.pao.project.util.DatabaseConnection;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,6 +28,10 @@ public class ServiciuAdmin {
 
     private ServiciuAdmin(){}
     public static ServiciuAdmin getInstance() { return InstanceHolder.instance;}
+
+    private Connection getConn() throws SQLException, IOException {
+        return DatabaseConnection.getInstance().getConnection();
+    }
 
     protected void run(Scanner sc){
         while(true){
@@ -177,14 +186,7 @@ public class ServiciuAdmin {
         
         Angajat ang;
         System.out.print("Curier? (Y/N): ");
-        switch(sc.next().strip().toLowerCase()){
-            case "y" -> {
-                ang = new Curier(nume, prenume, nrTelefon, salariu);
-            }
-            default -> {
-                ang = new Angajat(nume, prenume, nrTelefon, salariu);
-            }
-        }
+        ang = new Angajat(nume, prenume, nrTelefon, salariu, sc.next().strip().toLowerCase().equals("y"));
 
         ServiciuPrincipal.addAngajatSiLocatie(ang, idx);
         
@@ -217,5 +219,32 @@ public class ServiciuAdmin {
         for(Client cl : ServiciuPrincipal.getListaClienti()){
             System.out.println(++i + ". " + cl.toString());
         }
+    }
+
+
+
+
+    public List<String> getProduseTopPopularitate() throws SQLException, IOException {
+        String sql = """
+                SELECT b.title      AS book_title,
+                       a.name       AS author_name,
+                       COUNT(l.id)  AS borrow_count
+                FROM produs pr
+                JOIN comanda_produs com_pr ON com_pr.
+                LEFT JOIN loan l ON l.book_id = b.id
+                GROUP BY b.id, b.title, a.name
+                ORDER BY borrow_count DESC
+                LIMIT 10
+                """;
+        List<String> results = new ArrayList<>();
+        try (PreparedStatement ps = getConn().prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                results.add(String.format("'%s' — popularitate %d",
+                        rs.getString("denumire_produs"),
+                        rs.getLong("popularitate")));
+            }
+        }
+        return results;
     }
 }

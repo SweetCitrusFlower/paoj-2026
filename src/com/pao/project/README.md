@@ -1,7 +1,7 @@
 Tema: platforma food delivery
 
 Obiecte:
- 1. Comanda (Record: Map<Produs, Integer> produseCuCantitate, LocalDateTime dataPlasare, Curier curier, Locatie locatie, AdresaLivrare adresaLivrare)
+ 1. Comanda (Record: Map<Produs, Integer> produseCuCantitate, LocalDateTime dataPlasare, Curier curier, Adresa locatie, AdresaLivrare adresaLivrare)
  2. Produs (Class: String denumire, int pret, CategorieProdus categorie, List<Ingredient> listaIngrediente)
  3. CategorieProdus (Enum: BOL_POKE, SALATA, GARNITURA, DESERT)
  4. Ingredient (Class: String nume, CategorieIngredient categorie, int stoc)
@@ -15,7 +15,7 @@ Obiecte:
  12. Reducere (Class: Function<Comanda, Comanda> functieAplicareReducere, String descriere)
  13. Adresa (Class: String numeStrada, int nrStrada, int codPostal)
  14. AdresaLivrare (Class: extends Adresa; int nrApartament)
- 15. Locatie (Class: extends Adresa; List<Angajat> listaAngajati)
+ 15. Adresa (Class: extends Adresa; List<Angajat> listaAngajati)
  
  Servicii:
  1. ServiciuPrincipal

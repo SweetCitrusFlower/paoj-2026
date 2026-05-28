@@ -1,11 +1,10 @@
 package com.pao.project.service;
 
-import com.pao.project.model.AdresaLivrare;
+import com.pao.project.model.Adresa;
 import com.pao.project.model.Angajat;
 import com.pao.project.model.CategorieProdus;
 import com.pao.project.model.Client;
 import com.pao.project.model.Comanda;
-import com.pao.project.model.Curier;
 import com.pao.project.model.Ingredient;
 import com.pao.project.model.Locatie;
 import com.pao.project.model.Produs;
@@ -137,11 +136,11 @@ public class ServiciuClient {
         System.out.println("Alegeti o adresa de livrare:");
         afisareAdrese(cl);
         System.out.print("> ");
-        AdresaLivrare adrLivr = cl.getListaAdreseLivrare().get(Integer.parseInt(sc.next().strip()) - 1);
+        Adresa adrLivr = cl.getListaAdreseLivrare().get(Integer.parseInt(sc.next().strip()) - 1);
 
         Random r = new Random();
-        List<Angajat> curieriLocatie = locatieAleasa.getAngajati().stream().filter(ang -> ang instanceof Curier).collect(Collectors.toList());
-        Comanda com = new Comanda(adrLivr, map, (Curier) curieriLocatie.get(r.nextInt(curieriLocatie.size())), locatieAleasa, LocalDateTime.now());
+        List<Angajat> curieriLocatie = locatieAleasa.getAngajati().stream().filter(ang -> ang.getEsteCurier()).collect(Collectors.toList());
+        Comanda com = new Comanda(adrLivr, map, (Angajat) curieriLocatie.get(r.nextInt(curieriLocatie.size())), locatieAleasa, LocalDateTime.now());
         
         cl.adaugareProduseInCardFidelitate(com);
         ajustareStocuriIngrediente(com);
@@ -259,7 +258,7 @@ public class ServiciuClient {
             return;
         }
         int i = 0;
-        for(AdresaLivrare adr : cl.getListaAdreseLivrare()){
+        for(Adresa adr : cl.getListaAdreseLivrare()){
             System.out.println(++i + ". " + adr.toString());
         }
     }
@@ -274,7 +273,7 @@ public class ServiciuClient {
         System.out.print("Cod Postal: ");
         int codPostal = Integer.parseInt(sc.next().strip().toLowerCase());
         
-        cl.adaugareAdresaLivrare(new AdresaLivrare(numeStrada, nrStrada, codPostal, nrApartament));
+        cl.adaugareAdresaLivrare(new Adresa(numeStrada, nrStrada, codPostal, nrApartament));
         
         System.out.println("Noua adresa a fost adaugata!");
     }

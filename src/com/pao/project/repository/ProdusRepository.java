@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,22 +65,62 @@ public class ProdusRepository implements Repository<Produs, Long>{
     }
     @Override
     public void save(Produs entity) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        String sql = "INSERT INTO produs (denumire, pret, categorie, discount_procent, popularitate) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = getConn().prepareStatement(sql
+                ,Statement.RETURN_GENERATED_KEYS
+            )) {
+            ps.setString(1, entity.getDenumire());
+            ps.setDouble(2, entity.getPret());
+            ps.setString(3, entity.getCategorieProdus().toString());
+            ps.setDouble(4, entity.getDiscountProcent());
+            ps.setInt(5, 0);
+            ps.executeUpdate();
+            // Preluam ID-ul generat automat de baza de date
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) {
+                    entity.setId(keys.getLong(1));
+                }
+            }
+        } catch (IOException e) {
+            throw new SQLException("Eroare la obtinerea conexiunii: " + e.getMessage(), e);
+        }
     }
     @Override
     public Optional<Produs> findById(Long id) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        String sql = "SELECT denumire, pret, categorie, discount_procent, popularitate FROM produs WHERE id = ?";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return Optional.of(mapRow(rs));
+                return Optional.empty();
+            }
+        } catch (IOException e) {
+            throw new SQLException(e);
+        }
     }
     @Override
     public void update(Produs entity) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        String sql = "UPDATE produs SET denumire = ?, pret = ?, categorie = ?, discount_procent = ?, popularitate = ? WHERE id = ?";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setString(1, entity.getDenumire());
+            ps.setDouble(2, entity.getPret());
+            ps.setString(3, entity.getCategorieProdus().toString());
+            ps.setDouble(4, entity.getDiscountProcent());
+            ps.setInt(5, entity.getPopularitate());
+            ps.setLong(6, entity.getId());
+            ps.executeUpdate();
+        } catch (IOException e) {
+            throw new SQLException(e);
+        }
     }
     @Override
     public void delete(Long id) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String sql = "DELETE FROM produs WHERE id = ?";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (IOException e) {
+            throw new SQLException(e);
+        }
     }
 }

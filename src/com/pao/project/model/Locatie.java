@@ -6,8 +6,8 @@ import java.util.List;
 public class Locatie extends Adresa{
     private List<Angajat> angajati = new ArrayList<>();
     
-    public Locatie(String numeStrada, int nrStrada, int codPostal, List<Angajat> angajati) {
-        super(numeStrada, nrStrada, codPostal);
+    public Locatie(String numeStrada, int nrStrada, int codPostal, int nrApartament, List<Angajat> angajati) {
+        super(numeStrada, nrStrada, codPostal, nrApartament);
         this.angajati = angajati;
     }
 
