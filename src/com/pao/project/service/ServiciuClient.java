@@ -140,7 +140,7 @@ public class ServiciuClient {
 
         Random r = new Random();
         List<Angajat> curieriLocatie = locatieAleasa.getAngajati().stream().filter(ang -> ang.getEsteCurier()).collect(Collectors.toList());
-        Comanda com = new Comanda(adrLivr, map, (Angajat) curieriLocatie.get(r.nextInt(curieriLocatie.size())), locatieAleasa, LocalDateTime.now());
+        Comanda com = new Comanda(adrLivr, cl, map, (Angajat) curieriLocatie.get(r.nextInt(curieriLocatie.size())), locatieAleasa, LocalDateTime.now());
         
         cl.adaugareProduseInCardFidelitate(com);
         ajustareStocuriIngrediente(com);

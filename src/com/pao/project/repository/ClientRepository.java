@@ -1,7 +1,6 @@
 package com.pao.project.repository;
 
 import com.pao.project.model.Client;
-import com.pao.project.model.Comanda;
 import com.pao.project.util.DatabaseConnection;
 import java.io.IOException;
 import java.sql.Connection;
@@ -54,7 +53,7 @@ public class ClientRepository implements Repository<Client, Long>{
 
     @Override
     public Optional<Client> findById(Long id) throws SQLException {
-        String sql = "SELECT nume, prenume, nrTelefon, email, parola FROM client WHERE id = ?";
+        String sql = "SELECT * FROM client WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -83,11 +82,11 @@ public class ClientRepository implements Repository<Client, Long>{
     public void update(Client entity) throws SQLException {
         String sql = "UPDATE client SET nume = ?, prenume = ?, nrTelefon = ?, email = ?, parola = ? WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
-            ps.setString(1, "nume");
-            ps.setString(2, "prenume"); 
-            ps.setString(3, "nrTelefon"); 
-            ps.setString(4, "email");
-            ps.setString(5, "parola");
+            ps.setString(1, entity.getNume());
+            ps.setString(2, entity.getPrenume()); 
+            ps.setString(3, entity.getNrTelefon()); 
+            ps.setString(4, entity.getEmail());
+            ps.setString(5, entity.getParola());
             ps.setLong(6, entity.getId());
             ps.executeUpdate();
         } catch (IOException e) {
@@ -103,29 +102,6 @@ public class ClientRepository implements Repository<Client, Long>{
             ps.executeUpdate();
         } catch (IOException e) {
             throw new SQLException(e);
-        }
-    }
-
-    public void introducereComandaBD(Client cl, Comanda com) throws SQLException{
-        String sql = "INSERT INTO comanda (client_id, adresa_livrare_id, curier_id, locatie_id, data_plasare, status) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = getConn().prepareStatement(sql
-               ,Statement.RETURN_GENERATED_KEYS
-            )) {
-            ps.setLong(1, cl.getId());
-            ps.setLong(2, com.getAdresaLivrare().getId()); 
-            ps.setLong(3, com.getCurier().getId());
-            ps.setLong(4, com.getLocatie().getId()); 
-            ps.setDate(5, java.sql.Date.valueOf(com.getDataPlasare().toLocalDate()));
-            ps.setString(6, com.getStatus().toString());
-            ps.executeUpdate();
-            // Preluam ID-ul generat automat de baza de date
-            try (ResultSet keys = ps.getGeneratedKeys()) {
-                if (keys.next()) {
-                    com.setId(keys.getLong(1));
-                }
-            }
-        } catch (IOException e) {
-            throw new SQLException("Eroare la obtinerea conexiunii: " + e.getMessage(), e);
         }
     }
 

@@ -87,7 +87,7 @@ public class ProdusRepository implements Repository<Produs, Long>{
     }
     @Override
     public Optional<Produs> findById(Long id) throws SQLException {
-        String sql = "SELECT denumire, pret, categorie, discount_procent, popularitate FROM produs WHERE id = ?";
+        String sql = "SELECT * FROM produs WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {

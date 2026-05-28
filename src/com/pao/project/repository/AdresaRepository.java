@@ -50,7 +50,7 @@ public class AdresaRepository implements Repository<Adresa, Long>{
 
     @Override
     public Optional<Adresa> findById(Long id) throws SQLException {
-        String sql = "SELECT nume_strada, nr_strada, cod_postal, nr_apartament FROM Adresa WHERE id = ?";
+        String sql = "SELECT * FROM Adresa WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {

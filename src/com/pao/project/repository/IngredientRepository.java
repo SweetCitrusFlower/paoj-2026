@@ -49,7 +49,7 @@ class IngredientRepository implements Repository<Ingredient, Long>{
 
     @Override
     public Optional<Ingredient> findById(Long id) throws SQLException {
-        String sql = "SELECT nume, categorie, stoc FROM ingredient WHERE id = ?";
+        String sql = "SELECT * FROM ingredient WHERE id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {

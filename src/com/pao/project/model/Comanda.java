@@ -6,6 +6,7 @@ import java.util.Map;
 public class Comanda {
 
     private long id;
+    private final Client client;
     private final Angajat curier;
     private final Adresa locatie;
     private final Adresa adresaLivrare;
@@ -13,11 +14,12 @@ public class Comanda {
     private final LocalDateTime dataPlasare;
     private ComandaStatus status;
 
-    public Comanda(Adresa adresaLivrare, Map<Produs, Integer> produseCantitate, Angajat curier, Adresa locatie, LocalDateTime dataPlasare) 
+    public Comanda(Adresa adresaLivrare, Client client, Map<Produs, Integer> produseCantitate, Angajat curier, Adresa locatie, LocalDateTime dataPlasare) 
     {
         this.curier = curier;
         this.locatie = locatie;
         this.adresaLivrare = adresaLivrare;
+        this.client = client;
         this.produseCantitate = produseCantitate;
         this.status = ComandaStatus.PLASATA;
         this.dataPlasare = LocalDateTime.now();
@@ -25,6 +27,7 @@ public class Comanda {
 
     public Map<Produs, Integer> getProduseCantitate() {return Map.copyOf(produseCantitate);}
     public LocalDateTime getDataPlasare() {return dataPlasare;}
+    public Client getClient() {return client;}
     public Angajat getCurier() {return curier;}
     public Adresa getLocatie() {return locatie;}
     public Adresa getAdresaLivrare() {return adresaLivrare;}
@@ -35,6 +38,7 @@ public class Comanda {
     
     public void statusNext(){this.status = status.next();}
     public void anulare(){this.status = status.anulare();}
+
 
 
 }
