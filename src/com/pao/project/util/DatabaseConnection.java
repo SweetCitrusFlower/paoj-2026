@@ -1,5 +1,6 @@
 package com.pao.project.util;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -12,15 +13,14 @@ public final class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
 
-    // Constructor privat — nimeni din afară nu poate face "new DatabaseConnection()"
     private DatabaseConnection() throws IOException, SQLException {
         Properties props = new Properties();
         // Citim db.properties din classpath (resources/)
-        try (InputStream is = getClass().getClassLoader()
-                .getResourceAsStream("db.properties")) {
-            if (is == null) {
-                throw new IOException("Nu gasesc db.properties in resources/");
-            }
+
+        try (InputStream is = new FileInputStream("src/com/pao/project/resources/db.properties")){
+            // if (is == null) {
+            //     throw new IOException("Nu gasesc audit.csv");
+            // }
             props.load(is);
         }
         String url  = props.getProperty("db.url");

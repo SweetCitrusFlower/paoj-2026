@@ -16,8 +16,9 @@ public class Main {
 
         // ---- Actiunea 1: Adauga client----
         Client cl = new Client("Nou","Client","0712345678","email_care_acum_exista@gmail.com", "parolaClientNou333");
-        clRepo.save(cl);
+        
         audit.log("add_client");
+        clRepo.save(cl);
         System.out.println("1. client adaugat: " + cl);
 
         // String[][] teste = {

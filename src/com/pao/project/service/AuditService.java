@@ -22,8 +22,6 @@ public final class AuditService {
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     private AuditService() {
-        // La prima creare, scriem header-ul daca fisierul e gol / nou
-        // Folosim append=true ca sa nu stergem loguri existente din rulari precedente
     }
 
     public static AuditService getInstance() {

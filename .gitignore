@@ -44,3 +44,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 resources/db.properties
+audit.csv
+src/com/pao/project/resources/db.properties
